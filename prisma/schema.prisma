@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:1234@localhost:5432/kofis_sms_db?schema=public"
+}
+
+model User {
+  id       String @id @default(uuid())
+  email    String @unique
+  userName String @unique
+  password String
+}
+
+model Student {
+  id             Int       @id @default(autoincrement())
+  first_name     String
+  last_name      String
+  other_name     String?
+  dob            String
+  admission_date String
+  passport_url   String?
+  guardian       Guardian?
+  gender         Gender
+  address        String
+  phone          String
+  class_id       Int
+  class          Class     @relation(fields: [class_id], references: [id])
+  age            Int
+}
+
+model Class {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  students    Student[]
+}
+
+model Terms {
+  id        Int      @id @default(autoincrement())
+  name      String
+  startDate DateTime
+  endDate   DateTime
+}
+
+model Subject {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String?
+}
+
+model Guardian {
+  id           Int     @id @default(autoincrement())
+  name         String
+  phone        String
+  address      String
+  title        String
+  relationship String
+  studentId    Int     @unique
+  student      Student @relation(fields: [studentId], references: [id])
+}
+
+enum Gender {
+  Male
+  Female
+  Other
+}

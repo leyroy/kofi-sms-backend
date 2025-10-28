@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Student" ALTER COLUMN "dob" SET DATA TYPE TEXT,
+ALTER COLUMN "admission_date" SET DATA TYPE TEXT;
