@@ -959,6 +959,7 @@ export const GuardianScalarFieldEnum = {
   phone: 'phone',
   address: 'address',
   title: 'title',
+  relationship: 'relationship',
   studentId: 'studentId'
 } as const
 

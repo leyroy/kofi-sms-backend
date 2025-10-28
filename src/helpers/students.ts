@@ -10,7 +10,6 @@ export const createStudentHelper = async (
   const newStudnet = await prisma.student.create({
     data: {
       ...data,
-      passport_url: "",
       age: Number(data.age),
       gender: data.gender as Gender,
       class_id: Number(data.class_id),

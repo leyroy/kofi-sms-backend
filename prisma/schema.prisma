@@ -16,51 +16,75 @@ model User {
 }
 
 model Student {
-  id             Int       @id @default(autoincrement())
+  id             String     @id @default(uuid())
   first_name     String
   last_name      String
   other_name     String?
   dob            String
   admission_date String
   passport_url   String?
-  guardian       Guardian?
+  guardian       Guardian[]
   gender         Gender
   address        String
   phone          String
-  class_id       Int
-  class          Class     @relation(fields: [class_id], references: [id])
-  age            Int
+  class_id       String
+  class          Class      @relation(fields: [class_id], references: [id])
+  age            String
 }
 
 model Class {
-  id          Int       @id @default(autoincrement())
+  id          String    @id @default(uuid())
   name        String
+  indexNumber String    @unique
   description String?
+  feeId       String
+  fee         Fee       @relation(fields: [feeId], references: [id])
   students    Student[]
 }
 
 model Terms {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   name      String
   startDate DateTime
   endDate   DateTime
 }
 
 model Subject {
-  id          Int     @id @default(autoincrement())
+  id          String  @id @default(uuid())
   name        String
   description String?
 }
 
 model Guardian {
-  id           Int     @id @default(autoincrement())
+  id           String  @id @default(uuid())
   name         String
   phone        String
   address      String
   title        String
   relationship String
-  studentId    Int     @unique
+  studentId    String
   student      Student @relation(fields: [studentId], references: [id])
+}
+
+model Fee {
+  id         String       @id @default(uuid())
+  amount     Float
+  dueDate    DateTime
+  FeePayment FeePayment[]
+
+  Class Class[]
+}
+
+model FeePayment {
+  id         String   @id @default(uuid())
+  amount     Float
+  createdAt  DateTime @default(now())
+  balance    Float
+  paidAmount Float
+  method     String
+  paidDate   DateTime
+  feeId      String
+  fee        Fee      @relation(fields: [feeId], references: [id])
 }
 
 enum Gender {

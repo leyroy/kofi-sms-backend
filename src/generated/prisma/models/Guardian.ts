@@ -41,6 +41,7 @@ export type GuardianMinAggregateOutputType = {
   phone: string | null
   address: string | null
   title: string | null
+  relationship: string | null
   studentId: number | null
 }
 
@@ -50,6 +51,7 @@ export type GuardianMaxAggregateOutputType = {
   phone: string | null
   address: string | null
   title: string | null
+  relationship: string | null
   studentId: number | null
 }
 
@@ -59,6 +61,7 @@ export type GuardianCountAggregateOutputType = {
   phone: number
   address: number
   title: number
+  relationship: number
   studentId: number
   _all: number
 }
@@ -80,6 +83,7 @@ export type GuardianMinAggregateInputType = {
   phone?: true
   address?: true
   title?: true
+  relationship?: true
   studentId?: true
 }
 
@@ -89,6 +93,7 @@ export type GuardianMaxAggregateInputType = {
   phone?: true
   address?: true
   title?: true
+  relationship?: true
   studentId?: true
 }
 
@@ -98,6 +103,7 @@ export type GuardianCountAggregateInputType = {
   phone?: true
   address?: true
   title?: true
+  relationship?: true
   studentId?: true
   _all?: true
 }
@@ -194,6 +200,7 @@ export type GuardianGroupByOutputType = {
   phone: string
   address: string
   title: string
+  relationship: string
   studentId: number
   _count: GuardianCountAggregateOutputType | null
   _avg: GuardianAvgAggregateOutputType | null
@@ -226,6 +233,7 @@ export type GuardianWhereInput = {
   phone?: Prisma.StringFilter<"Guardian"> | string
   address?: Prisma.StringFilter<"Guardian"> | string
   title?: Prisma.StringFilter<"Guardian"> | string
+  relationship?: Prisma.StringFilter<"Guardian"> | string
   studentId?: Prisma.IntFilter<"Guardian"> | number
   student?: Prisma.XOR<Prisma.StudentScalarRelationFilter, Prisma.StudentWhereInput>
 }
@@ -236,13 +244,13 @@ export type GuardianOrderByWithRelationInput = {
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  relationship?: Prisma.SortOrder
   studentId?: Prisma.SortOrder
   student?: Prisma.StudentOrderByWithRelationInput
 }
 
 export type GuardianWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  studentId?: number
   AND?: Prisma.GuardianWhereInput | Prisma.GuardianWhereInput[]
   OR?: Prisma.GuardianWhereInput[]
   NOT?: Prisma.GuardianWhereInput | Prisma.GuardianWhereInput[]
@@ -250,8 +258,10 @@ export type GuardianWhereUniqueInput = Prisma.AtLeast<{
   phone?: Prisma.StringFilter<"Guardian"> | string
   address?: Prisma.StringFilter<"Guardian"> | string
   title?: Prisma.StringFilter<"Guardian"> | string
+  relationship?: Prisma.StringFilter<"Guardian"> | string
+  studentId?: Prisma.IntFilter<"Guardian"> | number
   student?: Prisma.XOR<Prisma.StudentScalarRelationFilter, Prisma.StudentWhereInput>
-}, "id" | "studentId">
+}, "id">
 
 export type GuardianOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -259,6 +269,7 @@ export type GuardianOrderByWithAggregationInput = {
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  relationship?: Prisma.SortOrder
   studentId?: Prisma.SortOrder
   _count?: Prisma.GuardianCountOrderByAggregateInput
   _avg?: Prisma.GuardianAvgOrderByAggregateInput
@@ -276,6 +287,7 @@ export type GuardianScalarWhereWithAggregatesInput = {
   phone?: Prisma.StringWithAggregatesFilter<"Guardian"> | string
   address?: Prisma.StringWithAggregatesFilter<"Guardian"> | string
   title?: Prisma.StringWithAggregatesFilter<"Guardian"> | string
+  relationship?: Prisma.StringWithAggregatesFilter<"Guardian"> | string
   studentId?: Prisma.IntWithAggregatesFilter<"Guardian"> | number
 }
 
@@ -284,6 +296,7 @@ export type GuardianCreateInput = {
   phone: string
   address: string
   title: string
+  relationship: string
   student: Prisma.StudentCreateNestedOneWithoutGuardianInput
 }
 
@@ -293,6 +306,7 @@ export type GuardianUncheckedCreateInput = {
   phone: string
   address: string
   title: string
+  relationship: string
   studentId: number
 }
 
@@ -301,6 +315,7 @@ export type GuardianUpdateInput = {
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  relationship?: Prisma.StringFieldUpdateOperationsInput | string
   student?: Prisma.StudentUpdateOneRequiredWithoutGuardianNestedInput
 }
 
@@ -310,6 +325,7 @@ export type GuardianUncheckedUpdateInput = {
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  relationship?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -319,6 +335,7 @@ export type GuardianCreateManyInput = {
   phone: string
   address: string
   title: string
+  relationship: string
   studentId: number
 }
 
@@ -327,6 +344,7 @@ export type GuardianUpdateManyMutationInput = {
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  relationship?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type GuardianUncheckedUpdateManyInput = {
@@ -335,12 +353,18 @@ export type GuardianUncheckedUpdateManyInput = {
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  relationship?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
-export type GuardianNullableScalarRelationFilter = {
-  is?: Prisma.GuardianWhereInput | null
-  isNot?: Prisma.GuardianWhereInput | null
+export type GuardianListRelationFilter = {
+  every?: Prisma.GuardianWhereInput
+  some?: Prisma.GuardianWhereInput
+  none?: Prisma.GuardianWhereInput
+}
+
+export type GuardianOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type GuardianCountOrderByAggregateInput = {
@@ -349,6 +373,7 @@ export type GuardianCountOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  relationship?: Prisma.SortOrder
   studentId?: Prisma.SortOrder
 }
 
@@ -363,6 +388,7 @@ export type GuardianMaxOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  relationship?: Prisma.SortOrder
   studentId?: Prisma.SortOrder
 }
 
@@ -372,6 +398,7 @@ export type GuardianMinOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  relationship?: Prisma.SortOrder
   studentId?: Prisma.SortOrder
 }
 
@@ -380,36 +407,46 @@ export type GuardianSumOrderByAggregateInput = {
   studentId?: Prisma.SortOrder
 }
 
-export type GuardianCreateNestedOneWithoutStudentInput = {
-  create?: Prisma.XOR<Prisma.GuardianCreateWithoutStudentInput, Prisma.GuardianUncheckedCreateWithoutStudentInput>
-  connectOrCreate?: Prisma.GuardianCreateOrConnectWithoutStudentInput
-  connect?: Prisma.GuardianWhereUniqueInput
+export type GuardianCreateNestedManyWithoutStudentInput = {
+  create?: Prisma.XOR<Prisma.GuardianCreateWithoutStudentInput, Prisma.GuardianUncheckedCreateWithoutStudentInput> | Prisma.GuardianCreateWithoutStudentInput[] | Prisma.GuardianUncheckedCreateWithoutStudentInput[]
+  connectOrCreate?: Prisma.GuardianCreateOrConnectWithoutStudentInput | Prisma.GuardianCreateOrConnectWithoutStudentInput[]
+  createMany?: Prisma.GuardianCreateManyStudentInputEnvelope
+  connect?: Prisma.GuardianWhereUniqueInput | Prisma.GuardianWhereUniqueInput[]
 }
 
-export type GuardianUncheckedCreateNestedOneWithoutStudentInput = {
-  create?: Prisma.XOR<Prisma.GuardianCreateWithoutStudentInput, Prisma.GuardianUncheckedCreateWithoutStudentInput>
-  connectOrCreate?: Prisma.GuardianCreateOrConnectWithoutStudentInput
-  connect?: Prisma.GuardianWhereUniqueInput
+export type GuardianUncheckedCreateNestedManyWithoutStudentInput = {
+  create?: Prisma.XOR<Prisma.GuardianCreateWithoutStudentInput, Prisma.GuardianUncheckedCreateWithoutStudentInput> | Prisma.GuardianCreateWithoutStudentInput[] | Prisma.GuardianUncheckedCreateWithoutStudentInput[]
+  connectOrCreate?: Prisma.GuardianCreateOrConnectWithoutStudentInput | Prisma.GuardianCreateOrConnectWithoutStudentInput[]
+  createMany?: Prisma.GuardianCreateManyStudentInputEnvelope
+  connect?: Prisma.GuardianWhereUniqueInput | Prisma.GuardianWhereUniqueInput[]
 }
 
-export type GuardianUpdateOneWithoutStudentNestedInput = {
-  create?: Prisma.XOR<Prisma.GuardianCreateWithoutStudentInput, Prisma.GuardianUncheckedCreateWithoutStudentInput>
-  connectOrCreate?: Prisma.GuardianCreateOrConnectWithoutStudentInput
-  upsert?: Prisma.GuardianUpsertWithoutStudentInput
-  disconnect?: Prisma.GuardianWhereInput | boolean
-  delete?: Prisma.GuardianWhereInput | boolean
-  connect?: Prisma.GuardianWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.GuardianUpdateToOneWithWhereWithoutStudentInput, Prisma.GuardianUpdateWithoutStudentInput>, Prisma.GuardianUncheckedUpdateWithoutStudentInput>
+export type GuardianUpdateManyWithoutStudentNestedInput = {
+  create?: Prisma.XOR<Prisma.GuardianCreateWithoutStudentInput, Prisma.GuardianUncheckedCreateWithoutStudentInput> | Prisma.GuardianCreateWithoutStudentInput[] | Prisma.GuardianUncheckedCreateWithoutStudentInput[]
+  connectOrCreate?: Prisma.GuardianCreateOrConnectWithoutStudentInput | Prisma.GuardianCreateOrConnectWithoutStudentInput[]
+  upsert?: Prisma.GuardianUpsertWithWhereUniqueWithoutStudentInput | Prisma.GuardianUpsertWithWhereUniqueWithoutStudentInput[]
+  createMany?: Prisma.GuardianCreateManyStudentInputEnvelope
+  set?: Prisma.GuardianWhereUniqueInput | Prisma.GuardianWhereUniqueInput[]
+  disconnect?: Prisma.GuardianWhereUniqueInput | Prisma.GuardianWhereUniqueInput[]
+  delete?: Prisma.GuardianWhereUniqueInput | Prisma.GuardianWhereUniqueInput[]
+  connect?: Prisma.GuardianWhereUniqueInput | Prisma.GuardianWhereUniqueInput[]
+  update?: Prisma.GuardianUpdateWithWhereUniqueWithoutStudentInput | Prisma.GuardianUpdateWithWhereUniqueWithoutStudentInput[]
+  updateMany?: Prisma.GuardianUpdateManyWithWhereWithoutStudentInput | Prisma.GuardianUpdateManyWithWhereWithoutStudentInput[]
+  deleteMany?: Prisma.GuardianScalarWhereInput | Prisma.GuardianScalarWhereInput[]
 }
 
-export type GuardianUncheckedUpdateOneWithoutStudentNestedInput = {
-  create?: Prisma.XOR<Prisma.GuardianCreateWithoutStudentInput, Prisma.GuardianUncheckedCreateWithoutStudentInput>
-  connectOrCreate?: Prisma.GuardianCreateOrConnectWithoutStudentInput
-  upsert?: Prisma.GuardianUpsertWithoutStudentInput
-  disconnect?: Prisma.GuardianWhereInput | boolean
-  delete?: Prisma.GuardianWhereInput | boolean
-  connect?: Prisma.GuardianWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.GuardianUpdateToOneWithWhereWithoutStudentInput, Prisma.GuardianUpdateWithoutStudentInput>, Prisma.GuardianUncheckedUpdateWithoutStudentInput>
+export type GuardianUncheckedUpdateManyWithoutStudentNestedInput = {
+  create?: Prisma.XOR<Prisma.GuardianCreateWithoutStudentInput, Prisma.GuardianUncheckedCreateWithoutStudentInput> | Prisma.GuardianCreateWithoutStudentInput[] | Prisma.GuardianUncheckedCreateWithoutStudentInput[]
+  connectOrCreate?: Prisma.GuardianCreateOrConnectWithoutStudentInput | Prisma.GuardianCreateOrConnectWithoutStudentInput[]
+  upsert?: Prisma.GuardianUpsertWithWhereUniqueWithoutStudentInput | Prisma.GuardianUpsertWithWhereUniqueWithoutStudentInput[]
+  createMany?: Prisma.GuardianCreateManyStudentInputEnvelope
+  set?: Prisma.GuardianWhereUniqueInput | Prisma.GuardianWhereUniqueInput[]
+  disconnect?: Prisma.GuardianWhereUniqueInput | Prisma.GuardianWhereUniqueInput[]
+  delete?: Prisma.GuardianWhereUniqueInput | Prisma.GuardianWhereUniqueInput[]
+  connect?: Prisma.GuardianWhereUniqueInput | Prisma.GuardianWhereUniqueInput[]
+  update?: Prisma.GuardianUpdateWithWhereUniqueWithoutStudentInput | Prisma.GuardianUpdateWithWhereUniqueWithoutStudentInput[]
+  updateMany?: Prisma.GuardianUpdateManyWithWhereWithoutStudentInput | Prisma.GuardianUpdateManyWithWhereWithoutStudentInput[]
+  deleteMany?: Prisma.GuardianScalarWhereInput | Prisma.GuardianScalarWhereInput[]
 }
 
 export type GuardianCreateWithoutStudentInput = {
@@ -417,6 +454,7 @@ export type GuardianCreateWithoutStudentInput = {
   phone: string
   address: string
   title: string
+  relationship: string
 }
 
 export type GuardianUncheckedCreateWithoutStudentInput = {
@@ -425,6 +463,7 @@ export type GuardianUncheckedCreateWithoutStudentInput = {
   phone: string
   address: string
   title: string
+  relationship: string
 }
 
 export type GuardianCreateOrConnectWithoutStudentInput = {
@@ -432,15 +471,47 @@ export type GuardianCreateOrConnectWithoutStudentInput = {
   create: Prisma.XOR<Prisma.GuardianCreateWithoutStudentInput, Prisma.GuardianUncheckedCreateWithoutStudentInput>
 }
 
-export type GuardianUpsertWithoutStudentInput = {
-  update: Prisma.XOR<Prisma.GuardianUpdateWithoutStudentInput, Prisma.GuardianUncheckedUpdateWithoutStudentInput>
-  create: Prisma.XOR<Prisma.GuardianCreateWithoutStudentInput, Prisma.GuardianUncheckedCreateWithoutStudentInput>
-  where?: Prisma.GuardianWhereInput
+export type GuardianCreateManyStudentInputEnvelope = {
+  data: Prisma.GuardianCreateManyStudentInput | Prisma.GuardianCreateManyStudentInput[]
+  skipDuplicates?: boolean
 }
 
-export type GuardianUpdateToOneWithWhereWithoutStudentInput = {
-  where?: Prisma.GuardianWhereInput
+export type GuardianUpsertWithWhereUniqueWithoutStudentInput = {
+  where: Prisma.GuardianWhereUniqueInput
+  update: Prisma.XOR<Prisma.GuardianUpdateWithoutStudentInput, Prisma.GuardianUncheckedUpdateWithoutStudentInput>
+  create: Prisma.XOR<Prisma.GuardianCreateWithoutStudentInput, Prisma.GuardianUncheckedCreateWithoutStudentInput>
+}
+
+export type GuardianUpdateWithWhereUniqueWithoutStudentInput = {
+  where: Prisma.GuardianWhereUniqueInput
   data: Prisma.XOR<Prisma.GuardianUpdateWithoutStudentInput, Prisma.GuardianUncheckedUpdateWithoutStudentInput>
+}
+
+export type GuardianUpdateManyWithWhereWithoutStudentInput = {
+  where: Prisma.GuardianScalarWhereInput
+  data: Prisma.XOR<Prisma.GuardianUpdateManyMutationInput, Prisma.GuardianUncheckedUpdateManyWithoutStudentInput>
+}
+
+export type GuardianScalarWhereInput = {
+  AND?: Prisma.GuardianScalarWhereInput | Prisma.GuardianScalarWhereInput[]
+  OR?: Prisma.GuardianScalarWhereInput[]
+  NOT?: Prisma.GuardianScalarWhereInput | Prisma.GuardianScalarWhereInput[]
+  id?: Prisma.IntFilter<"Guardian"> | number
+  name?: Prisma.StringFilter<"Guardian"> | string
+  phone?: Prisma.StringFilter<"Guardian"> | string
+  address?: Prisma.StringFilter<"Guardian"> | string
+  title?: Prisma.StringFilter<"Guardian"> | string
+  relationship?: Prisma.StringFilter<"Guardian"> | string
+  studentId?: Prisma.IntFilter<"Guardian"> | number
+}
+
+export type GuardianCreateManyStudentInput = {
+  id?: number
+  name: string
+  phone: string
+  address: string
+  title: string
+  relationship: string
 }
 
 export type GuardianUpdateWithoutStudentInput = {
@@ -448,6 +519,7 @@ export type GuardianUpdateWithoutStudentInput = {
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  relationship?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type GuardianUncheckedUpdateWithoutStudentInput = {
@@ -456,6 +528,16 @@ export type GuardianUncheckedUpdateWithoutStudentInput = {
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  relationship?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type GuardianUncheckedUpdateManyWithoutStudentInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  relationship?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -466,6 +548,7 @@ export type GuardianSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   phone?: boolean
   address?: boolean
   title?: boolean
+  relationship?: boolean
   studentId?: boolean
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["guardian"]>
@@ -476,6 +559,7 @@ export type GuardianSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   phone?: boolean
   address?: boolean
   title?: boolean
+  relationship?: boolean
   studentId?: boolean
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["guardian"]>
@@ -486,6 +570,7 @@ export type GuardianSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   phone?: boolean
   address?: boolean
   title?: boolean
+  relationship?: boolean
   studentId?: boolean
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["guardian"]>
@@ -496,10 +581,11 @@ export type GuardianSelectScalar = {
   phone?: boolean
   address?: boolean
   title?: boolean
+  relationship?: boolean
   studentId?: boolean
 }
 
-export type GuardianOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "phone" | "address" | "title" | "studentId", ExtArgs["result"]["guardian"]>
+export type GuardianOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "phone" | "address" | "title" | "relationship" | "studentId", ExtArgs["result"]["guardian"]>
 export type GuardianInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
 }
@@ -521,6 +607,7 @@ export type $GuardianPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     phone: string
     address: string
     title: string
+    relationship: string
     studentId: number
   }, ExtArgs["result"]["guardian"]>
   composites: {}
@@ -951,6 +1038,7 @@ export interface GuardianFieldRefs {
   readonly phone: Prisma.FieldRef<"Guardian", 'String'>
   readonly address: Prisma.FieldRef<"Guardian", 'String'>
   readonly title: Prisma.FieldRef<"Guardian", 'String'>
+  readonly relationship: Prisma.FieldRef<"Guardian", 'String'>
   readonly studentId: Prisma.FieldRef<"Guardian", 'Int'>
 }
     

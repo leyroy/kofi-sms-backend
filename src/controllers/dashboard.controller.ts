@@ -1,0 +1,31 @@
+import { Request, Response, NextFunction } from "express";
+import prisma from "../lib/config";
+
+const dashboardController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    // 🎯 Handle dashboardController logic here neger 😎
+    const totalStudents = await prisma.student.count();
+    const totalClasses = await prisma.class.count();
+    const totalGuardians = await prisma.guardian.count();
+    const newlyAdmittedStudents = await prisma.student.count({
+      orderBy: {
+        admission_date: "desc",
+      },
+      take: 5,
+    });
+    res.status(200).json({
+      totalStudents,
+      totalClasses,
+      totalGuardians,
+      newlyAdmittedStudents,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export default dashboardController;

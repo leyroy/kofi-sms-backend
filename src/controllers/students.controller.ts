@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import prisma from "../lib/config";
 import { createStudentHelper } from "../helpers/students";
 import cloudinary from "../lib/config/cloudnary.config";
-import { Guardian, Student } from "../generated/prisma/client";
 
 const getAllStudentController = async (
   req: Request,
@@ -10,9 +9,14 @@ const getAllStudentController = async (
   next: NextFunction
 ) => {
   try {
-    const students = await prisma.subject.findMany();
+    const students = await prisma.student.findMany({
+      include: {
+        class: true,
+        guardian: true,
+      },
+    });
     res.status(200).json({
-      message: "getAllStudentController controller is live 🧨",
+      success: true,
       students,
     });
   } catch (err) {
@@ -61,7 +65,29 @@ const uploadFileController = async (
   }
 };
 
+const deleteStudentController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params;
+    await prisma.student.delete({
+      where: {
+        id: Number(id),
+      },
+    });
+    res.status(200).json({
+      success: true,
+      message: "Student deleted successfully",
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 export {
+  deleteStudentController,
   getAllStudentController,
   createStudnetsController,
   uploadFileController,

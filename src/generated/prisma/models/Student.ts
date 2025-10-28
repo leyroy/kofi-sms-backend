@@ -279,7 +279,7 @@ export type StudentWhereInput = {
   phone?: Prisma.StringFilter<"Student"> | string
   class_id?: Prisma.IntFilter<"Student"> | number
   age?: Prisma.IntFilter<"Student"> | number
-  guardian?: Prisma.XOR<Prisma.GuardianNullableScalarRelationFilter, Prisma.GuardianWhereInput> | null
+  guardian?: Prisma.GuardianListRelationFilter
   class?: Prisma.XOR<Prisma.ClassScalarRelationFilter, Prisma.ClassWhereInput>
 }
 
@@ -296,7 +296,7 @@ export type StudentOrderByWithRelationInput = {
   phone?: Prisma.SortOrder
   class_id?: Prisma.SortOrder
   age?: Prisma.SortOrder
-  guardian?: Prisma.GuardianOrderByWithRelationInput
+  guardian?: Prisma.GuardianOrderByRelationAggregateInput
   class?: Prisma.ClassOrderByWithRelationInput
 }
 
@@ -316,7 +316,7 @@ export type StudentWhereUniqueInput = Prisma.AtLeast<{
   phone?: Prisma.StringFilter<"Student"> | string
   class_id?: Prisma.IntFilter<"Student"> | number
   age?: Prisma.IntFilter<"Student"> | number
-  guardian?: Prisma.XOR<Prisma.GuardianNullableScalarRelationFilter, Prisma.GuardianWhereInput> | null
+  guardian?: Prisma.GuardianListRelationFilter
   class?: Prisma.XOR<Prisma.ClassScalarRelationFilter, Prisma.ClassWhereInput>
 }, "id">
 
@@ -369,7 +369,7 @@ export type StudentCreateInput = {
   address: string
   phone: string
   age: number
-  guardian?: Prisma.GuardianCreateNestedOneWithoutStudentInput
+  guardian?: Prisma.GuardianCreateNestedManyWithoutStudentInput
   class: Prisma.ClassCreateNestedOneWithoutStudentsInput
 }
 
@@ -386,7 +386,7 @@ export type StudentUncheckedCreateInput = {
   phone: string
   class_id: number
   age: number
-  guardian?: Prisma.GuardianUncheckedCreateNestedOneWithoutStudentInput
+  guardian?: Prisma.GuardianUncheckedCreateNestedManyWithoutStudentInput
 }
 
 export type StudentUpdateInput = {
@@ -400,7 +400,7 @@ export type StudentUpdateInput = {
   address?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   age?: Prisma.IntFieldUpdateOperationsInput | number
-  guardian?: Prisma.GuardianUpdateOneWithoutStudentNestedInput
+  guardian?: Prisma.GuardianUpdateManyWithoutStudentNestedInput
   class?: Prisma.ClassUpdateOneRequiredWithoutStudentsNestedInput
 }
 
@@ -417,7 +417,7 @@ export type StudentUncheckedUpdateInput = {
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   class_id?: Prisma.IntFieldUpdateOperationsInput | number
   age?: Prisma.IntFieldUpdateOperationsInput | number
-  guardian?: Prisma.GuardianUncheckedUpdateOneWithoutStudentNestedInput
+  guardian?: Prisma.GuardianUncheckedUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentCreateManyInput = {
@@ -618,7 +618,7 @@ export type StudentCreateWithoutClassInput = {
   address: string
   phone: string
   age: number
-  guardian?: Prisma.GuardianCreateNestedOneWithoutStudentInput
+  guardian?: Prisma.GuardianCreateNestedManyWithoutStudentInput
 }
 
 export type StudentUncheckedCreateWithoutClassInput = {
@@ -633,7 +633,7 @@ export type StudentUncheckedCreateWithoutClassInput = {
   address: string
   phone: string
   age: number
-  guardian?: Prisma.GuardianUncheckedCreateNestedOneWithoutStudentInput
+  guardian?: Prisma.GuardianUncheckedCreateNestedManyWithoutStudentInput
 }
 
 export type StudentCreateOrConnectWithoutClassInput = {
@@ -779,7 +779,7 @@ export type StudentUpdateWithoutClassInput = {
   address?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   age?: Prisma.IntFieldUpdateOperationsInput | number
-  guardian?: Prisma.GuardianUpdateOneWithoutStudentNestedInput
+  guardian?: Prisma.GuardianUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentUncheckedUpdateWithoutClassInput = {
@@ -794,7 +794,7 @@ export type StudentUncheckedUpdateWithoutClassInput = {
   address?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   age?: Prisma.IntFieldUpdateOperationsInput | number
-  guardian?: Prisma.GuardianUncheckedUpdateOneWithoutStudentNestedInput
+  guardian?: Prisma.GuardianUncheckedUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentUncheckedUpdateManyWithoutClassInput = {
@@ -812,6 +812,35 @@ export type StudentUncheckedUpdateManyWithoutClassInput = {
 }
 
 
+/**
+ * Count Type StudentCountOutputType
+ */
+
+export type StudentCountOutputType = {
+  guardian: number
+}
+
+export type StudentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  guardian?: boolean | StudentCountOutputTypeCountGuardianArgs
+}
+
+/**
+ * StudentCountOutputType without action
+ */
+export type StudentCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StudentCountOutputType
+   */
+  select?: Prisma.StudentCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * StudentCountOutputType without action
+ */
+export type StudentCountOutputTypeCountGuardianArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuardianWhereInput
+}
+
 
 export type StudentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -828,6 +857,7 @@ export type StudentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   age?: boolean
   guardian?: boolean | Prisma.Student$guardianArgs<ExtArgs>
   class?: boolean | Prisma.ClassDefaultArgs<ExtArgs>
+  _count?: boolean | Prisma.StudentCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["student"]>
 
 export type StudentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -881,6 +911,7 @@ export type StudentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type StudentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   guardian?: boolean | Prisma.Student$guardianArgs<ExtArgs>
   class?: boolean | Prisma.ClassDefaultArgs<ExtArgs>
+  _count?: boolean | Prisma.StudentCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type StudentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   class?: boolean | Prisma.ClassDefaultArgs<ExtArgs>
@@ -892,7 +923,7 @@ export type StudentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type $StudentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Student"
   objects: {
-    guardian: Prisma.$GuardianPayload<ExtArgs> | null
+    guardian: Prisma.$GuardianPayload<ExtArgs>[]
     class: Prisma.$ClassPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1302,7 +1333,7 @@ readonly fields: StudentFieldRefs;
  */
 export interface Prisma__StudentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  guardian<T extends Prisma.Student$guardianArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Student$guardianArgs<ExtArgs>>): Prisma.Prisma__GuardianClient<runtime.Types.Result.GetResult<Prisma.$GuardianPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  guardian<T extends Prisma.Student$guardianArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Student$guardianArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuardianPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   class<T extends Prisma.ClassDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClassDefaultArgs<ExtArgs>>): Prisma.Prisma__ClassClient<runtime.Types.Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1757,6 +1788,11 @@ export type Student$guardianArgs<ExtArgs extends runtime.Types.Extensions.Intern
    */
   include?: Prisma.GuardianInclude<ExtArgs> | null
   where?: Prisma.GuardianWhereInput
+  orderBy?: Prisma.GuardianOrderByWithRelationInput | Prisma.GuardianOrderByWithRelationInput[]
+  cursor?: Prisma.GuardianWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuardianScalarFieldEnum | Prisma.GuardianScalarFieldEnum[]
 }
 
 /**
