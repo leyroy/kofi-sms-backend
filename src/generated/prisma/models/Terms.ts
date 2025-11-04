@@ -19,31 +19,23 @@ export type TermsModel = runtime.Types.Result.DefaultSelection<Prisma.$TermsPayl
 
 export type AggregateTerms = {
   _count: TermsCountAggregateOutputType | null
-  _avg: TermsAvgAggregateOutputType | null
-  _sum: TermsSumAggregateOutputType | null
   _min: TermsMinAggregateOutputType | null
   _max: TermsMaxAggregateOutputType | null
 }
 
-export type TermsAvgAggregateOutputType = {
-  id: number | null
-}
-
-export type TermsSumAggregateOutputType = {
-  id: number | null
-}
-
 export type TermsMinAggregateOutputType = {
-  id: number | null
+  id: string | null
   name: string | null
   startDate: Date | null
+  accademicYear: string | null
   endDate: Date | null
 }
 
 export type TermsMaxAggregateOutputType = {
-  id: number | null
+  id: string | null
   name: string | null
   startDate: Date | null
+  accademicYear: string | null
   endDate: Date | null
 }
 
@@ -51,23 +43,17 @@ export type TermsCountAggregateOutputType = {
   id: number
   name: number
   startDate: number
+  accademicYear: number
   endDate: number
   _all: number
 }
 
 
-export type TermsAvgAggregateInputType = {
-  id?: true
-}
-
-export type TermsSumAggregateInputType = {
-  id?: true
-}
-
 export type TermsMinAggregateInputType = {
   id?: true
   name?: true
   startDate?: true
+  accademicYear?: true
   endDate?: true
 }
 
@@ -75,6 +61,7 @@ export type TermsMaxAggregateInputType = {
   id?: true
   name?: true
   startDate?: true
+  accademicYear?: true
   endDate?: true
 }
 
@@ -82,6 +69,7 @@ export type TermsCountAggregateInputType = {
   id?: true
   name?: true
   startDate?: true
+  accademicYear?: true
   endDate?: true
   _all?: true
 }
@@ -124,18 +112,6 @@ export type TermsAggregateArgs<ExtArgs extends runtime.Types.Extensions.Internal
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: TermsAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: TermsSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: TermsMinAggregateInputType
@@ -166,20 +142,17 @@ export type TermsGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   _count?: TermsCountAggregateInputType | true
-  _avg?: TermsAvgAggregateInputType
-  _sum?: TermsSumAggregateInputType
   _min?: TermsMinAggregateInputType
   _max?: TermsMaxAggregateInputType
 }
 
 export type TermsGroupByOutputType = {
-  id: number
+  id: string
   name: string
   startDate: Date
+  accademicYear: string
   endDate: Date
   _count: TermsCountAggregateOutputType | null
-  _avg: TermsAvgAggregateOutputType | null
-  _sum: TermsSumAggregateOutputType | null
   _min: TermsMinAggregateOutputType | null
   _max: TermsMaxAggregateOutputType | null
 }
@@ -203,94 +176,114 @@ export type TermsWhereInput = {
   AND?: Prisma.TermsWhereInput | Prisma.TermsWhereInput[]
   OR?: Prisma.TermsWhereInput[]
   NOT?: Prisma.TermsWhereInput | Prisma.TermsWhereInput[]
-  id?: Prisma.IntFilter<"Terms"> | number
+  id?: Prisma.StringFilter<"Terms"> | string
   name?: Prisma.StringFilter<"Terms"> | string
   startDate?: Prisma.DateTimeFilter<"Terms"> | Date | string
+  accademicYear?: Prisma.StringFilter<"Terms"> | string
   endDate?: Prisma.DateTimeFilter<"Terms"> | Date | string
+  FeePayment?: Prisma.FeePaymentListRelationFilter
 }
 
 export type TermsOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
+  accademicYear?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
+  FeePayment?: Prisma.FeePaymentOrderByRelationAggregateInput
 }
 
 export type TermsWhereUniqueInput = Prisma.AtLeast<{
-  id?: number
+  id?: string
   AND?: Prisma.TermsWhereInput | Prisma.TermsWhereInput[]
   OR?: Prisma.TermsWhereInput[]
   NOT?: Prisma.TermsWhereInput | Prisma.TermsWhereInput[]
   name?: Prisma.StringFilter<"Terms"> | string
   startDate?: Prisma.DateTimeFilter<"Terms"> | Date | string
+  accademicYear?: Prisma.StringFilter<"Terms"> | string
   endDate?: Prisma.DateTimeFilter<"Terms"> | Date | string
+  FeePayment?: Prisma.FeePaymentListRelationFilter
 }, "id">
 
 export type TermsOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
+  accademicYear?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   _count?: Prisma.TermsCountOrderByAggregateInput
-  _avg?: Prisma.TermsAvgOrderByAggregateInput
   _max?: Prisma.TermsMaxOrderByAggregateInput
   _min?: Prisma.TermsMinOrderByAggregateInput
-  _sum?: Prisma.TermsSumOrderByAggregateInput
 }
 
 export type TermsScalarWhereWithAggregatesInput = {
   AND?: Prisma.TermsScalarWhereWithAggregatesInput | Prisma.TermsScalarWhereWithAggregatesInput[]
   OR?: Prisma.TermsScalarWhereWithAggregatesInput[]
   NOT?: Prisma.TermsScalarWhereWithAggregatesInput | Prisma.TermsScalarWhereWithAggregatesInput[]
-  id?: Prisma.IntWithAggregatesFilter<"Terms"> | number
+  id?: Prisma.StringWithAggregatesFilter<"Terms"> | string
   name?: Prisma.StringWithAggregatesFilter<"Terms"> | string
   startDate?: Prisma.DateTimeWithAggregatesFilter<"Terms"> | Date | string
+  accademicYear?: Prisma.StringWithAggregatesFilter<"Terms"> | string
   endDate?: Prisma.DateTimeWithAggregatesFilter<"Terms"> | Date | string
 }
 
 export type TermsCreateInput = {
+  id?: string
   name: string
   startDate: Date | string
+  accademicYear: string
   endDate: Date | string
+  FeePayment?: Prisma.FeePaymentCreateNestedManyWithoutTermInput
 }
 
 export type TermsUncheckedCreateInput = {
-  id?: number
+  id?: string
   name: string
   startDate: Date | string
+  accademicYear: string
   endDate: Date | string
+  FeePayment?: Prisma.FeePaymentUncheckedCreateNestedManyWithoutTermInput
 }
 
 export type TermsUpdateInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accademicYear?: Prisma.StringFieldUpdateOperationsInput | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  FeePayment?: Prisma.FeePaymentUpdateManyWithoutTermNestedInput
 }
 
 export type TermsUncheckedUpdateInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accademicYear?: Prisma.StringFieldUpdateOperationsInput | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  FeePayment?: Prisma.FeePaymentUncheckedUpdateManyWithoutTermNestedInput
 }
 
 export type TermsCreateManyInput = {
-  id?: number
+  id?: string
   name: string
   startDate: Date | string
+  accademicYear: string
   endDate: Date | string
 }
 
 export type TermsUpdateManyMutationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accademicYear?: Prisma.StringFieldUpdateOperationsInput | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TermsUncheckedUpdateManyInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accademicYear?: Prisma.StringFieldUpdateOperationsInput | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -298,17 +291,15 @@ export type TermsCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
+  accademicYear?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
-}
-
-export type TermsAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
 }
 
 export type TermsMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
+  accademicYear?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
 }
 
@@ -316,30 +307,127 @@ export type TermsMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
+  accademicYear?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
 }
 
-export type TermsSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
+export type TermsScalarRelationFilter = {
+  is?: Prisma.TermsWhereInput
+  isNot?: Prisma.TermsWhereInput
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type TermsCreateNestedOneWithoutFeePaymentInput = {
+  create?: Prisma.XOR<Prisma.TermsCreateWithoutFeePaymentInput, Prisma.TermsUncheckedCreateWithoutFeePaymentInput>
+  connectOrCreate?: Prisma.TermsCreateOrConnectWithoutFeePaymentInput
+  connect?: Prisma.TermsWhereUniqueInput
+}
+
+export type TermsUpdateOneRequiredWithoutFeePaymentNestedInput = {
+  create?: Prisma.XOR<Prisma.TermsCreateWithoutFeePaymentInput, Prisma.TermsUncheckedCreateWithoutFeePaymentInput>
+  connectOrCreate?: Prisma.TermsCreateOrConnectWithoutFeePaymentInput
+  upsert?: Prisma.TermsUpsertWithoutFeePaymentInput
+  connect?: Prisma.TermsWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TermsUpdateToOneWithWhereWithoutFeePaymentInput, Prisma.TermsUpdateWithoutFeePaymentInput>, Prisma.TermsUncheckedUpdateWithoutFeePaymentInput>
+}
+
+export type TermsCreateWithoutFeePaymentInput = {
+  id?: string
+  name: string
+  startDate: Date | string
+  accademicYear: string
+  endDate: Date | string
+}
+
+export type TermsUncheckedCreateWithoutFeePaymentInput = {
+  id?: string
+  name: string
+  startDate: Date | string
+  accademicYear: string
+  endDate: Date | string
+}
+
+export type TermsCreateOrConnectWithoutFeePaymentInput = {
+  where: Prisma.TermsWhereUniqueInput
+  create: Prisma.XOR<Prisma.TermsCreateWithoutFeePaymentInput, Prisma.TermsUncheckedCreateWithoutFeePaymentInput>
+}
+
+export type TermsUpsertWithoutFeePaymentInput = {
+  update: Prisma.XOR<Prisma.TermsUpdateWithoutFeePaymentInput, Prisma.TermsUncheckedUpdateWithoutFeePaymentInput>
+  create: Prisma.XOR<Prisma.TermsCreateWithoutFeePaymentInput, Prisma.TermsUncheckedCreateWithoutFeePaymentInput>
+  where?: Prisma.TermsWhereInput
+}
+
+export type TermsUpdateToOneWithWhereWithoutFeePaymentInput = {
+  where?: Prisma.TermsWhereInput
+  data: Prisma.XOR<Prisma.TermsUpdateWithoutFeePaymentInput, Prisma.TermsUncheckedUpdateWithoutFeePaymentInput>
+}
+
+export type TermsUpdateWithoutFeePaymentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accademicYear?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type TermsUncheckedUpdateWithoutFeePaymentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accademicYear?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type TermsCountOutputType
+ */
+
+export type TermsCountOutputType = {
+  FeePayment: number
+}
+
+export type TermsCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  FeePayment?: boolean | TermsCountOutputTypeCountFeePaymentArgs
+}
+
+/**
+ * TermsCountOutputType without action
+ */
+export type TermsCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TermsCountOutputType
+   */
+  select?: Prisma.TermsCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * TermsCountOutputType without action
+ */
+export type TermsCountOutputTypeCountFeePaymentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FeePaymentWhereInput
+}
 
 
 export type TermsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   startDate?: boolean
+  accademicYear?: boolean
   endDate?: boolean
+  FeePayment?: boolean | Prisma.Terms$FeePaymentArgs<ExtArgs>
+  _count?: boolean | Prisma.TermsCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["terms"]>
 
 export type TermsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   startDate?: boolean
+  accademicYear?: boolean
   endDate?: boolean
 }, ExtArgs["result"]["terms"]>
 
@@ -347,6 +435,7 @@ export type TermsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   id?: boolean
   name?: boolean
   startDate?: boolean
+  accademicYear?: boolean
   endDate?: boolean
 }, ExtArgs["result"]["terms"]>
 
@@ -354,18 +443,28 @@ export type TermsSelectScalar = {
   id?: boolean
   name?: boolean
   startDate?: boolean
+  accademicYear?: boolean
   endDate?: boolean
 }
 
-export type TermsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "startDate" | "endDate", ExtArgs["result"]["terms"]>
+export type TermsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "startDate" | "accademicYear" | "endDate", ExtArgs["result"]["terms"]>
+export type TermsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  FeePayment?: boolean | Prisma.Terms$FeePaymentArgs<ExtArgs>
+  _count?: boolean | Prisma.TermsCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type TermsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type TermsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $TermsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Terms"
-  objects: {}
+  objects: {
+    FeePayment: Prisma.$FeePaymentPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: number
+    id: string
     name: string
     startDate: Date
+    accademicYear: string
     endDate: Date
   }, ExtArgs["result"]["terms"]>
   composites: {}
@@ -761,6 +860,7 @@ readonly fields: TermsFieldRefs;
  */
 export interface Prisma__TermsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  FeePayment<T extends Prisma.Terms$FeePaymentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Terms$FeePaymentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FeePaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -790,9 +890,10 @@ export interface Prisma__TermsClient<T, Null = never, ExtArgs extends runtime.Ty
  * Fields of the Terms model
  */
 export interface TermsFieldRefs {
-  readonly id: Prisma.FieldRef<"Terms", 'Int'>
+  readonly id: Prisma.FieldRef<"Terms", 'String'>
   readonly name: Prisma.FieldRef<"Terms", 'String'>
   readonly startDate: Prisma.FieldRef<"Terms", 'DateTime'>
+  readonly accademicYear: Prisma.FieldRef<"Terms", 'String'>
   readonly endDate: Prisma.FieldRef<"Terms", 'DateTime'>
 }
     
@@ -810,6 +911,10 @@ export type TermsFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Terms
    */
   omit?: Prisma.TermsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TermsInclude<ExtArgs> | null
   /**
    * Filter, which Terms to fetch.
    */
@@ -829,6 +934,10 @@ export type TermsFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.TermsOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TermsInclude<ExtArgs> | null
+  /**
    * Filter, which Terms to fetch.
    */
   where: Prisma.TermsWhereUniqueInput
@@ -846,6 +955,10 @@ export type TermsFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Terms
    */
   omit?: Prisma.TermsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TermsInclude<ExtArgs> | null
   /**
    * Filter, which Terms to fetch.
    */
@@ -895,6 +1008,10 @@ export type TermsFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.TermsOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TermsInclude<ExtArgs> | null
+  /**
    * Filter, which Terms to fetch.
    */
   where?: Prisma.TermsWhereInput
@@ -943,6 +1060,10 @@ export type TermsFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.TermsOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TermsInclude<ExtArgs> | null
+  /**
    * Filter, which Terms to fetch.
    */
   where?: Prisma.TermsWhereInput
@@ -985,6 +1106,10 @@ export type TermsCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the Terms
    */
   omit?: Prisma.TermsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TermsInclude<ExtArgs> | null
   /**
    * The data needed to create a Terms.
    */
@@ -1033,6 +1158,10 @@ export type TermsUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the Terms
    */
   omit?: Prisma.TermsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TermsInclude<ExtArgs> | null
   /**
    * The data needed to update a Terms.
    */
@@ -1100,6 +1229,10 @@ export type TermsUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    */
   omit?: Prisma.TermsOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TermsInclude<ExtArgs> | null
+  /**
    * The filter to search for the Terms to update in case it exists.
    */
   where: Prisma.TermsWhereUniqueInput
@@ -1126,6 +1259,10 @@ export type TermsDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    */
   omit?: Prisma.TermsOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TermsInclude<ExtArgs> | null
+  /**
    * Filter which Terms to delete.
    */
   where: Prisma.TermsWhereUniqueInput
@@ -1146,6 +1283,30 @@ export type TermsDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
+ * Terms.FeePayment
+ */
+export type Terms$FeePaymentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FeePayment
+   */
+  select?: Prisma.FeePaymentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FeePayment
+   */
+  omit?: Prisma.FeePaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeePaymentInclude<ExtArgs> | null
+  where?: Prisma.FeePaymentWhereInput
+  orderBy?: Prisma.FeePaymentOrderByWithRelationInput | Prisma.FeePaymentOrderByWithRelationInput[]
+  cursor?: Prisma.FeePaymentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FeePaymentScalarFieldEnum | Prisma.FeePaymentScalarFieldEnum[]
+}
+
+/**
  * Terms without action
  */
 export type TermsDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1157,4 +1318,8 @@ export type TermsDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the Terms
    */
   omit?: Prisma.TermsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TermsInclude<ExtArgs> | null
 }

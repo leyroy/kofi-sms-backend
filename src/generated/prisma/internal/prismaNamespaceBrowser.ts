@@ -53,7 +53,9 @@ export const ModelName = {
   Class: 'Class',
   Terms: 'Terms',
   Subject: 'Subject',
-  Guardian: 'Guardian'
+  Guardian: 'Guardian',
+  Fee: 'Fee',
+  FeePayment: 'FeePayment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -87,6 +89,7 @@ export const StudentScalarFieldEnum = {
   first_name: 'first_name',
   last_name: 'last_name',
   other_name: 'other_name',
+  indexNumber: 'indexNumber',
   dob: 'dob',
   admission_date: 'admission_date',
   passport_url: 'passport_url',
@@ -103,7 +106,8 @@ export type StudentScalarFieldEnum = (typeof StudentScalarFieldEnum)[keyof typeo
 export const ClassScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  description: 'description'
+  description: 'description',
+  feeId: 'feeId'
 } as const
 
 export type ClassScalarFieldEnum = (typeof ClassScalarFieldEnum)[keyof typeof ClassScalarFieldEnum]
@@ -113,6 +117,7 @@ export const TermsScalarFieldEnum = {
   id: 'id',
   name: 'name',
   startDate: 'startDate',
+  accademicYear: 'accademicYear',
   endDate: 'endDate'
 } as const
 
@@ -139,6 +144,29 @@ export const GuardianScalarFieldEnum = {
 } as const
 
 export type GuardianScalarFieldEnum = (typeof GuardianScalarFieldEnum)[keyof typeof GuardianScalarFieldEnum]
+
+
+export const FeeScalarFieldEnum = {
+  id: 'id',
+  feeName: 'feeName',
+  amount: 'amount'
+} as const
+
+export type FeeScalarFieldEnum = (typeof FeeScalarFieldEnum)[keyof typeof FeeScalarFieldEnum]
+
+
+export const FeePaymentScalarFieldEnum = {
+  id: 'id',
+  amount: 'amount',
+  createdAt: 'createdAt',
+  termId: 'termId',
+  studentId: 'studentId',
+  method: 'method',
+  paidDate: 'paidDate',
+  feeId: 'feeId'
+} as const
+
+export type FeePaymentScalarFieldEnum = (typeof FeePaymentScalarFieldEnum)[keyof typeof FeePaymentScalarFieldEnum]
 
 
 export const SortOrder = {

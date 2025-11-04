@@ -74,7 +74,7 @@ const deleteStudentController = async (
     const { id } = req.params;
     await prisma.student.delete({
       where: {
-        id: Number(id),
+        id: id,
       },
     });
     res.status(200).json({

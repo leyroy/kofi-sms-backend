@@ -20,6 +20,7 @@ model Student {
   first_name     String
   last_name      String
   other_name     String?
+  indexNumber    String     @unique
   dob            String
   admission_date String
   passport_url   String?
@@ -30,12 +31,13 @@ model Student {
   class_id       String
   class          Class      @relation(fields: [class_id], references: [id])
   age            String
+
+  FeePayment FeePayment[]
 }
 
 model Class {
   id          String    @id @default(uuid())
   name        String
-  indexNumber String    @unique
   description String?
   feeId       String
   fee         Fee       @relation(fields: [feeId], references: [id])
@@ -43,10 +45,12 @@ model Class {
 }
 
 model Terms {
-  id        String   @id @default(uuid())
-  name      String
-  startDate DateTime
-  endDate   DateTime
+  id            String       @id @default(uuid())
+  name          String
+  startDate     DateTime
+  accademicYear String
+  endDate       DateTime
+  FeePayment    FeePayment[]
 }
 
 model Subject {
@@ -63,28 +67,29 @@ model Guardian {
   title        String
   relationship String
   studentId    String
-  student      Student @relation(fields: [studentId], references: [id])
+  student      Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
 }
 
 model Fee {
   id         String       @id @default(uuid())
+  feeName    String
   amount     Float
-  dueDate    DateTime
   FeePayment FeePayment[]
-
-  Class Class[]
+  Class      Class[]
 }
 
 model FeePayment {
-  id         String   @id @default(uuid())
-  amount     Float
-  createdAt  DateTime @default(now())
-  balance    Float
-  paidAmount Float
-  method     String
-  paidDate   DateTime
-  feeId      String
-  fee        Fee      @relation(fields: [feeId], references: [id])
+  id        String   @id @default(uuid())
+  amount    Float
+  createdAt DateTime @default(now())
+  termId    String
+  studentId String
+  method    String
+  paidDate  DateTime
+  feeId     String
+  student   Student  @relation(fields: [studentId], references: [id], onDelete: NoAction)
+  term      Terms    @relation(fields: [termId], references: [id], onDelete: Cascade)
+  fee       Fee      @relation(fields: [feeId], references: [id], onDelete: Cascade)
 }
 
 enum Gender {

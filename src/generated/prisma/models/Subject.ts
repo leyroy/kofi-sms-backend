@@ -19,28 +19,18 @@ export type SubjectModel = runtime.Types.Result.DefaultSelection<Prisma.$Subject
 
 export type AggregateSubject = {
   _count: SubjectCountAggregateOutputType | null
-  _avg: SubjectAvgAggregateOutputType | null
-  _sum: SubjectSumAggregateOutputType | null
   _min: SubjectMinAggregateOutputType | null
   _max: SubjectMaxAggregateOutputType | null
 }
 
-export type SubjectAvgAggregateOutputType = {
-  id: number | null
-}
-
-export type SubjectSumAggregateOutputType = {
-  id: number | null
-}
-
 export type SubjectMinAggregateOutputType = {
-  id: number | null
+  id: string | null
   name: string | null
   description: string | null
 }
 
 export type SubjectMaxAggregateOutputType = {
-  id: number | null
+  id: string | null
   name: string | null
   description: string | null
 }
@@ -52,14 +42,6 @@ export type SubjectCountAggregateOutputType = {
   _all: number
 }
 
-
-export type SubjectAvgAggregateInputType = {
-  id?: true
-}
-
-export type SubjectSumAggregateInputType = {
-  id?: true
-}
 
 export type SubjectMinAggregateInputType = {
   id?: true
@@ -118,18 +100,6 @@ export type SubjectAggregateArgs<ExtArgs extends runtime.Types.Extensions.Intern
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: SubjectAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: SubjectSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: SubjectMinAggregateInputType
@@ -160,19 +130,15 @@ export type SubjectGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   _count?: SubjectCountAggregateInputType | true
-  _avg?: SubjectAvgAggregateInputType
-  _sum?: SubjectSumAggregateInputType
   _min?: SubjectMinAggregateInputType
   _max?: SubjectMaxAggregateInputType
 }
 
 export type SubjectGroupByOutputType = {
-  id: number
+  id: string
   name: string
   description: string | null
   _count: SubjectCountAggregateOutputType | null
-  _avg: SubjectAvgAggregateOutputType | null
-  _sum: SubjectSumAggregateOutputType | null
   _min: SubjectMinAggregateOutputType | null
   _max: SubjectMaxAggregateOutputType | null
 }
@@ -196,7 +162,7 @@ export type SubjectWhereInput = {
   AND?: Prisma.SubjectWhereInput | Prisma.SubjectWhereInput[]
   OR?: Prisma.SubjectWhereInput[]
   NOT?: Prisma.SubjectWhereInput | Prisma.SubjectWhereInput[]
-  id?: Prisma.IntFilter<"Subject"> | number
+  id?: Prisma.StringFilter<"Subject"> | string
   name?: Prisma.StringFilter<"Subject"> | string
   description?: Prisma.StringNullableFilter<"Subject"> | string | null
 }
@@ -208,7 +174,7 @@ export type SubjectOrderByWithRelationInput = {
 }
 
 export type SubjectWhereUniqueInput = Prisma.AtLeast<{
-  id?: number
+  id?: string
   AND?: Prisma.SubjectWhereInput | Prisma.SubjectWhereInput[]
   OR?: Prisma.SubjectWhereInput[]
   NOT?: Prisma.SubjectWhereInput | Prisma.SubjectWhereInput[]
@@ -221,56 +187,57 @@ export type SubjectOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.SubjectCountOrderByAggregateInput
-  _avg?: Prisma.SubjectAvgOrderByAggregateInput
   _max?: Prisma.SubjectMaxOrderByAggregateInput
   _min?: Prisma.SubjectMinOrderByAggregateInput
-  _sum?: Prisma.SubjectSumOrderByAggregateInput
 }
 
 export type SubjectScalarWhereWithAggregatesInput = {
   AND?: Prisma.SubjectScalarWhereWithAggregatesInput | Prisma.SubjectScalarWhereWithAggregatesInput[]
   OR?: Prisma.SubjectScalarWhereWithAggregatesInput[]
   NOT?: Prisma.SubjectScalarWhereWithAggregatesInput | Prisma.SubjectScalarWhereWithAggregatesInput[]
-  id?: Prisma.IntWithAggregatesFilter<"Subject"> | number
+  id?: Prisma.StringWithAggregatesFilter<"Subject"> | string
   name?: Prisma.StringWithAggregatesFilter<"Subject"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Subject"> | string | null
 }
 
 export type SubjectCreateInput = {
+  id?: string
   name: string
   description?: string | null
 }
 
 export type SubjectUncheckedCreateInput = {
-  id?: number
+  id?: string
   name: string
   description?: string | null
 }
 
 export type SubjectUpdateInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type SubjectUncheckedUpdateInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type SubjectCreateManyInput = {
-  id?: number
+  id?: string
   name: string
   description?: string | null
 }
 
 export type SubjectUpdateManyMutationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type SubjectUncheckedUpdateManyInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -279,10 +246,6 @@ export type SubjectCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-}
-
-export type SubjectAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
 }
 
 export type SubjectMaxOrderByAggregateInput = {
@@ -295,10 +258,6 @@ export type SubjectMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-}
-
-export type SubjectSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
 }
 
 
@@ -333,7 +292,7 @@ export type $SubjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   name: "Subject"
   objects: {}
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: number
+    id: string
     name: string
     description: string | null
   }, ExtArgs["result"]["subject"]>
@@ -759,7 +718,7 @@ export interface Prisma__SubjectClient<T, Null = never, ExtArgs extends runtime.
  * Fields of the Subject model
  */
 export interface SubjectFieldRefs {
-  readonly id: Prisma.FieldRef<"Subject", 'Int'>
+  readonly id: Prisma.FieldRef<"Subject", 'String'>
   readonly name: Prisma.FieldRef<"Subject", 'String'>
   readonly description: Prisma.FieldRef<"Subject", 'String'>
 }

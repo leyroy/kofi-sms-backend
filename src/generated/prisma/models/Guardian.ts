@@ -19,40 +19,28 @@ export type GuardianModel = runtime.Types.Result.DefaultSelection<Prisma.$Guardi
 
 export type AggregateGuardian = {
   _count: GuardianCountAggregateOutputType | null
-  _avg: GuardianAvgAggregateOutputType | null
-  _sum: GuardianSumAggregateOutputType | null
   _min: GuardianMinAggregateOutputType | null
   _max: GuardianMaxAggregateOutputType | null
 }
 
-export type GuardianAvgAggregateOutputType = {
-  id: number | null
-  studentId: number | null
-}
-
-export type GuardianSumAggregateOutputType = {
-  id: number | null
-  studentId: number | null
-}
-
 export type GuardianMinAggregateOutputType = {
-  id: number | null
+  id: string | null
   name: string | null
   phone: string | null
   address: string | null
   title: string | null
   relationship: string | null
-  studentId: number | null
+  studentId: string | null
 }
 
 export type GuardianMaxAggregateOutputType = {
-  id: number | null
+  id: string | null
   name: string | null
   phone: string | null
   address: string | null
   title: string | null
   relationship: string | null
-  studentId: number | null
+  studentId: string | null
 }
 
 export type GuardianCountAggregateOutputType = {
@@ -66,16 +54,6 @@ export type GuardianCountAggregateOutputType = {
   _all: number
 }
 
-
-export type GuardianAvgAggregateInputType = {
-  id?: true
-  studentId?: true
-}
-
-export type GuardianSumAggregateInputType = {
-  id?: true
-  studentId?: true
-}
 
 export type GuardianMinAggregateInputType = {
   id?: true
@@ -146,18 +124,6 @@ export type GuardianAggregateArgs<ExtArgs extends runtime.Types.Extensions.Inter
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: GuardianAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: GuardianSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: GuardianMinAggregateInputType
@@ -188,23 +154,19 @@ export type GuardianGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   _count?: GuardianCountAggregateInputType | true
-  _avg?: GuardianAvgAggregateInputType
-  _sum?: GuardianSumAggregateInputType
   _min?: GuardianMinAggregateInputType
   _max?: GuardianMaxAggregateInputType
 }
 
 export type GuardianGroupByOutputType = {
-  id: number
+  id: string
   name: string
   phone: string
   address: string
   title: string
   relationship: string
-  studentId: number
+  studentId: string
   _count: GuardianCountAggregateOutputType | null
-  _avg: GuardianAvgAggregateOutputType | null
-  _sum: GuardianSumAggregateOutputType | null
   _min: GuardianMinAggregateOutputType | null
   _max: GuardianMaxAggregateOutputType | null
 }
@@ -228,13 +190,13 @@ export type GuardianWhereInput = {
   AND?: Prisma.GuardianWhereInput | Prisma.GuardianWhereInput[]
   OR?: Prisma.GuardianWhereInput[]
   NOT?: Prisma.GuardianWhereInput | Prisma.GuardianWhereInput[]
-  id?: Prisma.IntFilter<"Guardian"> | number
+  id?: Prisma.StringFilter<"Guardian"> | string
   name?: Prisma.StringFilter<"Guardian"> | string
   phone?: Prisma.StringFilter<"Guardian"> | string
   address?: Prisma.StringFilter<"Guardian"> | string
   title?: Prisma.StringFilter<"Guardian"> | string
   relationship?: Prisma.StringFilter<"Guardian"> | string
-  studentId?: Prisma.IntFilter<"Guardian"> | number
+  studentId?: Prisma.StringFilter<"Guardian"> | string
   student?: Prisma.XOR<Prisma.StudentScalarRelationFilter, Prisma.StudentWhereInput>
 }
 
@@ -250,7 +212,7 @@ export type GuardianOrderByWithRelationInput = {
 }
 
 export type GuardianWhereUniqueInput = Prisma.AtLeast<{
-  id?: number
+  id?: string
   AND?: Prisma.GuardianWhereInput | Prisma.GuardianWhereInput[]
   OR?: Prisma.GuardianWhereInput[]
   NOT?: Prisma.GuardianWhereInput | Prisma.GuardianWhereInput[]
@@ -259,7 +221,7 @@ export type GuardianWhereUniqueInput = Prisma.AtLeast<{
   address?: Prisma.StringFilter<"Guardian"> | string
   title?: Prisma.StringFilter<"Guardian"> | string
   relationship?: Prisma.StringFilter<"Guardian"> | string
-  studentId?: Prisma.IntFilter<"Guardian"> | number
+  studentId?: Prisma.StringFilter<"Guardian"> | string
   student?: Prisma.XOR<Prisma.StudentScalarRelationFilter, Prisma.StudentWhereInput>
 }, "id">
 
@@ -272,26 +234,25 @@ export type GuardianOrderByWithAggregationInput = {
   relationship?: Prisma.SortOrder
   studentId?: Prisma.SortOrder
   _count?: Prisma.GuardianCountOrderByAggregateInput
-  _avg?: Prisma.GuardianAvgOrderByAggregateInput
   _max?: Prisma.GuardianMaxOrderByAggregateInput
   _min?: Prisma.GuardianMinOrderByAggregateInput
-  _sum?: Prisma.GuardianSumOrderByAggregateInput
 }
 
 export type GuardianScalarWhereWithAggregatesInput = {
   AND?: Prisma.GuardianScalarWhereWithAggregatesInput | Prisma.GuardianScalarWhereWithAggregatesInput[]
   OR?: Prisma.GuardianScalarWhereWithAggregatesInput[]
   NOT?: Prisma.GuardianScalarWhereWithAggregatesInput | Prisma.GuardianScalarWhereWithAggregatesInput[]
-  id?: Prisma.IntWithAggregatesFilter<"Guardian"> | number
+  id?: Prisma.StringWithAggregatesFilter<"Guardian"> | string
   name?: Prisma.StringWithAggregatesFilter<"Guardian"> | string
   phone?: Prisma.StringWithAggregatesFilter<"Guardian"> | string
   address?: Prisma.StringWithAggregatesFilter<"Guardian"> | string
   title?: Prisma.StringWithAggregatesFilter<"Guardian"> | string
   relationship?: Prisma.StringWithAggregatesFilter<"Guardian"> | string
-  studentId?: Prisma.IntWithAggregatesFilter<"Guardian"> | number
+  studentId?: Prisma.StringWithAggregatesFilter<"Guardian"> | string
 }
 
 export type GuardianCreateInput = {
+  id?: string
   name: string
   phone: string
   address: string
@@ -301,16 +262,17 @@ export type GuardianCreateInput = {
 }
 
 export type GuardianUncheckedCreateInput = {
-  id?: number
+  id?: string
   name: string
   phone: string
   address: string
   title: string
   relationship: string
-  studentId: number
+  studentId: string
 }
 
 export type GuardianUpdateInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
@@ -320,26 +282,27 @@ export type GuardianUpdateInput = {
 }
 
 export type GuardianUncheckedUpdateInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   relationship?: Prisma.StringFieldUpdateOperationsInput | string
-  studentId?: Prisma.IntFieldUpdateOperationsInput | number
+  studentId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type GuardianCreateManyInput = {
-  id?: number
+  id?: string
   name: string
   phone: string
   address: string
   title: string
   relationship: string
-  studentId: number
+  studentId: string
 }
 
 export type GuardianUpdateManyMutationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
@@ -348,13 +311,13 @@ export type GuardianUpdateManyMutationInput = {
 }
 
 export type GuardianUncheckedUpdateManyInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   relationship?: Prisma.StringFieldUpdateOperationsInput | string
-  studentId?: Prisma.IntFieldUpdateOperationsInput | number
+  studentId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type GuardianListRelationFilter = {
@@ -377,11 +340,6 @@ export type GuardianCountOrderByAggregateInput = {
   studentId?: Prisma.SortOrder
 }
 
-export type GuardianAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  studentId?: Prisma.SortOrder
-}
-
 export type GuardianMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
@@ -399,11 +357,6 @@ export type GuardianMinOrderByAggregateInput = {
   address?: Prisma.SortOrder
   title?: Prisma.SortOrder
   relationship?: Prisma.SortOrder
-  studentId?: Prisma.SortOrder
-}
-
-export type GuardianSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   studentId?: Prisma.SortOrder
 }
 
@@ -450,6 +403,7 @@ export type GuardianUncheckedUpdateManyWithoutStudentNestedInput = {
 }
 
 export type GuardianCreateWithoutStudentInput = {
+  id?: string
   name: string
   phone: string
   address: string
@@ -458,7 +412,7 @@ export type GuardianCreateWithoutStudentInput = {
 }
 
 export type GuardianUncheckedCreateWithoutStudentInput = {
-  id?: number
+  id?: string
   name: string
   phone: string
   address: string
@@ -496,17 +450,17 @@ export type GuardianScalarWhereInput = {
   AND?: Prisma.GuardianScalarWhereInput | Prisma.GuardianScalarWhereInput[]
   OR?: Prisma.GuardianScalarWhereInput[]
   NOT?: Prisma.GuardianScalarWhereInput | Prisma.GuardianScalarWhereInput[]
-  id?: Prisma.IntFilter<"Guardian"> | number
+  id?: Prisma.StringFilter<"Guardian"> | string
   name?: Prisma.StringFilter<"Guardian"> | string
   phone?: Prisma.StringFilter<"Guardian"> | string
   address?: Prisma.StringFilter<"Guardian"> | string
   title?: Prisma.StringFilter<"Guardian"> | string
   relationship?: Prisma.StringFilter<"Guardian"> | string
-  studentId?: Prisma.IntFilter<"Guardian"> | number
+  studentId?: Prisma.StringFilter<"Guardian"> | string
 }
 
 export type GuardianCreateManyStudentInput = {
-  id?: number
+  id?: string
   name: string
   phone: string
   address: string
@@ -515,6 +469,7 @@ export type GuardianCreateManyStudentInput = {
 }
 
 export type GuardianUpdateWithoutStudentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
@@ -523,7 +478,7 @@ export type GuardianUpdateWithoutStudentInput = {
 }
 
 export type GuardianUncheckedUpdateWithoutStudentInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
@@ -532,7 +487,7 @@ export type GuardianUncheckedUpdateWithoutStudentInput = {
 }
 
 export type GuardianUncheckedUpdateManyWithoutStudentInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
@@ -602,13 +557,13 @@ export type $GuardianPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     student: Prisma.$StudentPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: number
+    id: string
     name: string
     phone: string
     address: string
     title: string
     relationship: string
-    studentId: number
+    studentId: string
   }, ExtArgs["result"]["guardian"]>
   composites: {}
 }
@@ -1033,13 +988,13 @@ export interface Prisma__GuardianClient<T, Null = never, ExtArgs extends runtime
  * Fields of the Guardian model
  */
 export interface GuardianFieldRefs {
-  readonly id: Prisma.FieldRef<"Guardian", 'Int'>
+  readonly id: Prisma.FieldRef<"Guardian", 'String'>
   readonly name: Prisma.FieldRef<"Guardian", 'String'>
   readonly phone: Prisma.FieldRef<"Guardian", 'String'>
   readonly address: Prisma.FieldRef<"Guardian", 'String'>
   readonly title: Prisma.FieldRef<"Guardian", 'String'>
   readonly relationship: Prisma.FieldRef<"Guardian", 'String'>
-  readonly studentId: Prisma.FieldRef<"Guardian", 'Int'>
+  readonly studentId: Prisma.FieldRef<"Guardian", 'String'>
 }
     
 

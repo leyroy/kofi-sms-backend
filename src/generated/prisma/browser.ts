@@ -46,3 +46,13 @@ export type Subject = Prisma.SubjectModel
  * 
  */
 export type Guardian = Prisma.GuardianModel
+/**
+ * Model Fee
+ * 
+ */
+export type Fee = Prisma.FeeModel
+/**
+ * Model FeePayment
+ * 
+ */
+export type FeePayment = Prisma.FeePaymentModel

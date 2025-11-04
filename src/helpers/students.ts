@@ -7,18 +7,21 @@ export const createStudentHelper = async (
   guardian: Guardian[]
 ) => {
   //TODO: upload picture here if any
-  const newStudnet = await prisma.student.create({
+  const studentCount = await prisma.student.count();
+  const indexNumber = `STU-${String(studentCount + 1).padStart(5, "0")}`;
+  const newStudent = await prisma.student.create({
     data: {
       ...data,
-      age: Number(data.age),
+      age: data.age,
       gender: data.gender as Gender,
-      class_id: Number(data.class_id),
+      indexNumber,
+      class_id: data.class_id as string,
     },
   });
   await prisma.guardian.createMany({
     data: guardian.map((gud) => ({
       ...gud,
-      studentId: newStudnet.id,
+      studentId: newStudent.id,
     })),
   });
   return {
