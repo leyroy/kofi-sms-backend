@@ -81,3 +81,8 @@ export type FeePlans = Prisma.FeePlansModel
  * 
  */
 export type FeePayment = Prisma.FeePaymentModel
+/**
+ * Model FeePaymentHistory
+ * 
+ */
+export type FeePaymentHistory = Prisma.FeePaymentHistoryModel

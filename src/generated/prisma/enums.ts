@@ -29,6 +29,14 @@ export const LevelForFees = {
 export type LevelForFees = (typeof LevelForFees)[keyof typeof LevelForFees]
 
 
+export const StudentStatus = {
+  Active: 'Active',
+  Inactive: 'Inactive'
+} as const
+
+export type StudentStatus = (typeof StudentStatus)[keyof typeof StudentStatus]
+
+
 export const termStatus = {
   Ongoing: 'Ongoing',
   Completed: 'Completed',

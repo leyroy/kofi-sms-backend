@@ -396,7 +396,8 @@ export const ModelName = {
   Subject: 'Subject',
   Guardian: 'Guardian',
   FeePlans: 'FeePlans',
-  FeePayment: 'FeePayment'
+  FeePayment: 'FeePayment',
+  FeePaymentHistory: 'FeePaymentHistory'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -412,7 +413,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "student" | "class" | "terms" | "subject" | "guardian" | "feePlans" | "feePayment"
+    modelProps: "user" | "student" | "class" | "terms" | "subject" | "guardian" | "feePlans" | "feePayment" | "feePaymentHistory"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1008,6 +1009,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    FeePaymentHistory: {
+      payload: Prisma.$FeePaymentHistoryPayload<ExtArgs>
+      fields: Prisma.FeePaymentHistoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FeePaymentHistoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeePaymentHistoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FeePaymentHistoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeePaymentHistoryPayload>
+        }
+        findFirst: {
+          args: Prisma.FeePaymentHistoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeePaymentHistoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FeePaymentHistoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeePaymentHistoryPayload>
+        }
+        findMany: {
+          args: Prisma.FeePaymentHistoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeePaymentHistoryPayload>[]
+        }
+        create: {
+          args: Prisma.FeePaymentHistoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeePaymentHistoryPayload>
+        }
+        createMany: {
+          args: Prisma.FeePaymentHistoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FeePaymentHistoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeePaymentHistoryPayload>[]
+        }
+        delete: {
+          args: Prisma.FeePaymentHistoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeePaymentHistoryPayload>
+        }
+        update: {
+          args: Prisma.FeePaymentHistoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeePaymentHistoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.FeePaymentHistoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FeePaymentHistoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FeePaymentHistoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeePaymentHistoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.FeePaymentHistoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeePaymentHistoryPayload>
+        }
+        aggregate: {
+          args: Prisma.FeePaymentHistoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFeePaymentHistory>
+        }
+        groupBy: {
+          args: Prisma.FeePaymentHistoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FeePaymentHistoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FeePaymentHistoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FeePaymentHistoryCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1066,6 +1141,7 @@ export const StudentScalarFieldEnum = {
   dob: 'dob',
   admission_date: 'admission_date',
   passport_url: 'passport_url',
+  status: 'status',
   gender: 'gender',
   address: 'address',
   phone: 'phone',
@@ -1091,6 +1167,7 @@ export const TermsScalarFieldEnum = {
   name: 'name',
   startDate: 'startDate',
   status: 'status',
+  isPlansCreated: 'isPlansCreated',
   isFeesGenerated: 'isFeesGenerated',
   accademicYear: 'accademicYear',
   endDate: 'endDate'
@@ -1146,6 +1223,19 @@ export const FeePaymentScalarFieldEnum = {
 export type FeePaymentScalarFieldEnum = (typeof FeePaymentScalarFieldEnum)[keyof typeof FeePaymentScalarFieldEnum]
 
 
+export const FeePaymentHistoryScalarFieldEnum = {
+  id: 'id',
+  feePaymentId: 'feePaymentId',
+  studentId: 'studentId',
+  changedAt: 'changedAt',
+  oldAmount: 'oldAmount',
+  paidAmount: 'paidAmount',
+  newAmount: 'newAmount'
+} as const
+
+export type FeePaymentHistoryScalarFieldEnum = (typeof FeePaymentHistoryScalarFieldEnum)[keyof typeof FeePaymentHistoryScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1187,6 +1277,20 @@ export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
  * Reference to a field of type 'String[]'
  */
 export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
+
+
+/**
+ * Reference to a field of type 'StudentStatus'
+ */
+export type EnumStudentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StudentStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'StudentStatus[]'
+ */
+export type ListEnumStudentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StudentStatus[]'>
     
 
 
@@ -1403,6 +1507,7 @@ export type GlobalOmitConfig = {
   guardian?: Prisma.GuardianOmit
   feePlans?: Prisma.FeePlansOmit
   feePayment?: Prisma.FeePaymentOmit
+  feePaymentHistory?: Prisma.FeePaymentHistoryOmit
 }
 
 /* Types for Logging */

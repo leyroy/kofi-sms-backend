@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import prisma from "../lib/config";
 import { createStudentHelper } from "../helpers/students";
 import cloudinary from "../lib/config/cloudnary.config";
+import { ErrorHandler } from "../middleware/errorHandler";
+import { HTTPSTATUS } from "../lib/http-status";
 
 const getAllStudentController = async (
   req: Request,
@@ -23,6 +25,7 @@ const getAllStudentController = async (
     next(err);
   }
 };
+
 const createStudnetsController = async (
   req: Request,
   res: Response,
@@ -38,6 +41,7 @@ const createStudnetsController = async (
     next(err);
   }
 };
+
 const uploadFileController = async (
   req: Request,
   res: Response,
@@ -45,7 +49,6 @@ const uploadFileController = async (
 ) => {
   const file = req.file?.path;
   if (!file) {
-    console.log("file", file);
     return res.status(400).json({
       success: false,
       message: "No file uploaded",
@@ -86,9 +89,34 @@ const deleteStudentController = async (
   }
 };
 
+const updateStudentStatus = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { studentId, status } = req.body;
+    if (!studentId || !status) {
+      throw ErrorHandler.badRequest("Student Id or status is missing.");
+    }
+    await prisma.student.update({
+      where: { id: studentId },
+      data: {
+        status: status,
+      },
+    });
+    res
+      .status(HTTPSTATUS.ACCEPTED)
+      .json({ success: true, message: "Student status updated status" });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export {
   deleteStudentController,
   getAllStudentController,
   createStudnetsController,
   uploadFileController,
+  updateStudentStatus,
 };

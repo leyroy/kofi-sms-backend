@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { Terms } from "../generated/prisma/client";
+import { Terms, termStatus } from "../generated/prisma/client";
 import prisma from "../lib/config";
 import { ErrorHandler } from "../middleware/errorHandler";
 import { HTTPSTATUS } from "../lib/http-status";
@@ -85,10 +85,31 @@ const getAllTemController = async (
     terms: data,
   });
 };
+const updateTermStatusController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { termId, status } = req.body;
+  if (!termId || !status) {
+    throw ErrorHandler.badRequest("term Id or Status is missing.");
+  }
+  await prisma.terms.update({
+    where: { id: termId },
+    data: {
+      status: status as termStatus,
+    },
+  });
+  res.status(HTTPSTATUS.CREATED).json({
+    success: true,
+    message: `Status updated to ${status}`,
+  });
+};
 
 export default {
   createTermController,
   editTermController,
   deleteTemController,
   getAllTemController,
+  updateTermStatusController,
 };

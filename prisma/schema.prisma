@@ -16,23 +16,26 @@ model User {
 }
 
 model Student {
-  id             String     @id @default(uuid())
+  id             String        @id @default(uuid())
   first_name     String
   last_name      String
   other_name     String?
-  indexNumber    String     @unique
+  indexNumber    String        @unique
   dob            String
   admission_date String
   passport_url   String?
   guardian       Guardian[]
+  status         StudentStatus @default(Active)
   gender         Gender
   address        String
   phone          String
   class_id       String
-  class          Class      @relation(fields: [class_id], references: [id])
+  class          Class         @relation(fields: [class_id], references: [id])
   age            String
 
   FeePayment FeePayment[]
+
+  feePaymentHistories FeePaymentHistory[]
 }
 
 model Class {
@@ -48,6 +51,7 @@ model Terms {
   name            String
   startDate       DateTime
   status          termStatus   @default(Upcoming)
+  isPlansCreated  Boolean      @default(false)
   isFeesGenerated Boolean      @default(false)
   accademicYear   String
   endDate         DateTime
@@ -83,17 +87,30 @@ model FeePlans {
 }
 
 model FeePayment {
-  id         String         @id @default(uuid())
-  amount     Float
-  createdAt  DateTime       @default(now())
-  termId     String
-  studentId  String
-  method     paymentMethod?
-  status     PaymentStatus
-  paidDate   DateTime       @default(now())
-  paidAmount Float
-  student    Student        @relation(fields: [studentId], references: [id], onDelete: NoAction)
-  term       Terms          @relation(fields: [termId], references: [id], onDelete: Cascade)
+  id                  String              @id @default(uuid())
+  amount              Float
+  createdAt           DateTime            @default(now())
+  termId              String
+  studentId           String
+  method              paymentMethod?
+  status              PaymentStatus
+  paidDate            DateTime            @default(now())
+  paidAmount          Float
+  student             Student             @relation(fields: [studentId], references: [id], onDelete: NoAction)
+  term                Terms               @relation(fields: [termId], references: [id], onDelete: Cascade)
+  feePaymentHistories FeePaymentHistory[]
+}
+
+model FeePaymentHistory {
+  id           String     @id @default(uuid())
+  feePaymentId String
+  studentId    String
+  changedAt    DateTime   @default(now())
+  oldAmount    Float
+  paidAmount   Float      @default(0.00)
+  newAmount    Float
+  student      Student    @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  feePayment   FeePayment @relation(fields: [feePaymentId], references: [id], onDelete: Cascade)
 }
 
 enum Gender {
@@ -109,6 +126,11 @@ enum LevelForFees {
   JHS
   SHS
   Other
+}
+
+enum StudentStatus {
+  Active
+  Inactive
 }
 
 enum termStatus {

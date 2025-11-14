@@ -28,13 +28,12 @@ const dashboardController = async (
     const allFees = await prisma.feePayment.findMany();
 
     const collectedFees = allFees.filter((fee) => fee.status !== "Unpaid");
-    console.log("collectedFees", collectedFees);
     const totalFeesCollected = collectedFees.reduce(
       (acc, fee) => acc + fee.paidAmount,
       0
     );
     const totalFeesDueAmount = allFees
-      .filter((fee) => fee.status === "Unpaid")
+      .filter((fee) => fee.status !== "Paid")
       .reduce((acc, fee) => acc + (fee.amount - fee.paidAmount), 0);
 
     res.status(200).json({

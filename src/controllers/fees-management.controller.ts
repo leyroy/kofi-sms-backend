@@ -14,12 +14,24 @@ const createFees = async (req: Request, res: Response, next: NextFunction) => {
     if (!termId) {
       throw ErrorHandler.badRequest("Term id is required");
     }
+    const term = await prisma.terms.findUnique({
+      where: { id: termId },
+    });
+    if (term?.isPlansCreated) {
+      throw ErrorHandler.conflict("Pleans are already generated for this term");
+    }
     await prisma.feePlans.createMany({
       data: termFeesPlans.map((plan) => ({
         ...plan,
         termId,
       })),
       skipDuplicates: true,
+    });
+    await prisma.terms.update({
+      where: { id: termId },
+      data: {
+        isPlansCreated: true,
+      },
     });
     res.status(201).json({ success: true, message: "Created successfully." });
   } catch (err) {
@@ -35,10 +47,20 @@ export const generateStudentsFees = async (
   const { termId } = req.params;
   try {
     const students = await prisma.student.findMany({
+      where: { status: "Active" },
       include: { class: true },
     });
     if (students.length === 0) {
       throw ErrorHandler.notFound("No students found");
+    }
+    const term = await prisma.terms.findUnique({
+      where: { id: termId },
+    });
+    if (!term?.isPlansCreated) {
+      throw ErrorHandler.conflict("Create pland for this term first");
+    }
+    if (term?.isFeesGenerated) {
+      throw ErrorHandler.conflict("Fees are already generated for this term");
     }
     const feePlans = await prisma.feePlans.findMany({
       where: {
@@ -64,6 +86,12 @@ export const generateStudentsFees = async (
     await prisma.feePayment.createMany({
       data: studentFees,
       skipDuplicates: true,
+    });
+    await prisma.terms.update({
+      where: { id: termId },
+      data: {
+        isFeesGenerated: true,
+      },
     });
     res.status(HTTPSTATUS.OK).json({ success: true, data: studentFees });
   } catch (error) {
@@ -115,10 +143,67 @@ export const payFees = async (
         status: status,
       },
     });
+    //add to history
+    await prisma.feePaymentHistory.create({
+      data: {
+        newAmount: newPaidAmount,
+        oldAmount: feeRecord.amount,
+        feePaymentId: feeRecord.id,
+        studentId: feeRecord.studentId,
+        paidAmount: amount,
+      },
+    });
     res.status(201).json({ success: true, data: feePayment });
   } catch (error) {
     next(error);
   }
 };
 
-export default { createFees, generateStudentsFees, getAllFees, payFees };
+const getFeesByStudentId = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { studentId } = req.params;
+  if (!studentId) {
+    throw ErrorHandler.badRequest("Student id is required");
+  }
+  const results = await prisma.student.findUnique({
+    where: { id: studentId },
+    include: {
+      FeePayment: true,
+      class: true,
+    },
+  });
+  res.status(HTTPSTATUS.OK).json({ success: true, results: results });
+};
+
+const getFeeHistorybyFeeId = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { feeId } = req.params;
+  if (!feeId) {
+    throw ErrorHandler.badRequest("Fee ID is missing.");
+  }
+  const results = await prisma.feePayment.findFirst({
+    where: { id: feeId },
+    include: {
+      feePaymentHistories: true,
+      student: true,
+      term: true,
+    },
+  });
+
+  res.status(HTTPSTATUS.OK).json({ success: true, history: results });
+};
+
+export default {
+  createFees,
+  getFeesByStudentId,
+  getFeeHistorybyFeeId,
+  generateStudentsFees,
+  getAllFees,
+  payFees,
+};

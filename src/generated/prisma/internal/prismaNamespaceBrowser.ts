@@ -55,7 +55,8 @@ export const ModelName = {
   Subject: 'Subject',
   Guardian: 'Guardian',
   FeePlans: 'FeePlans',
-  FeePayment: 'FeePayment'
+  FeePayment: 'FeePayment',
+  FeePaymentHistory: 'FeePaymentHistory'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -93,6 +94,7 @@ export const StudentScalarFieldEnum = {
   dob: 'dob',
   admission_date: 'admission_date',
   passport_url: 'passport_url',
+  status: 'status',
   gender: 'gender',
   address: 'address',
   phone: 'phone',
@@ -118,6 +120,7 @@ export const TermsScalarFieldEnum = {
   name: 'name',
   startDate: 'startDate',
   status: 'status',
+  isPlansCreated: 'isPlansCreated',
   isFeesGenerated: 'isFeesGenerated',
   accademicYear: 'accademicYear',
   endDate: 'endDate'
@@ -171,6 +174,19 @@ export const FeePaymentScalarFieldEnum = {
 } as const
 
 export type FeePaymentScalarFieldEnum = (typeof FeePaymentScalarFieldEnum)[keyof typeof FeePaymentScalarFieldEnum]
+
+
+export const FeePaymentHistoryScalarFieldEnum = {
+  id: 'id',
+  feePaymentId: 'feePaymentId',
+  studentId: 'studentId',
+  changedAt: 'changedAt',
+  oldAmount: 'oldAmount',
+  paidAmount: 'paidAmount',
+  newAmount: 'newAmount'
+} as const
+
+export type FeePaymentHistoryScalarFieldEnum = (typeof FeePaymentHistoryScalarFieldEnum)[keyof typeof FeePaymentHistoryScalarFieldEnum]
 
 
 export const SortOrder = {

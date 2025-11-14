@@ -8,7 +8,6 @@ export const loginController = async (
   next: NextFunction
 ) => {
   const { userName, password } = req.body;
-  console.log(req.body, "this is the request body");
 
   if (!userName || !password) {
     throw ErrorHandler.badRequest("Username and password are required");
@@ -17,7 +16,6 @@ export const loginController = async (
   const accessToken = await logIn({ userName, password });
 
   // 🎯 Handle login logic here
-
   if (!accessToken) {
     throw ErrorHandler.unauthorized("Invalid user credentials");
   }
