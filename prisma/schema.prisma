@@ -6,7 +6,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://postgres:1234@localhost:5432/kofis_sms_db?schema=public"
+  url      = "postgresql://neondb_owner:npg_BC3xTJrXQ9ni@ep-noisy-paper-ah3eukud-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
 }
 
 model User {
