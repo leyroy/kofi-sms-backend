@@ -15,3 +15,42 @@ export const Gender = {
 } as const
 
 export type Gender = (typeof Gender)[keyof typeof Gender]
+
+
+export const LevelForFees = {
+  Nursery: 'Nursery',
+  Kindergarten: 'Kindergarten',
+  Primary: 'Primary',
+  JHS: 'JHS',
+  SHS: 'SHS',
+  Other: 'Other'
+} as const
+
+export type LevelForFees = (typeof LevelForFees)[keyof typeof LevelForFees]
+
+
+export const termStatus = {
+  Ongoing: 'Ongoing',
+  Completed: 'Completed',
+  Upcoming: 'Upcoming'
+} as const
+
+export type termStatus = (typeof termStatus)[keyof typeof termStatus]
+
+
+export const paymentMethod = {
+  Cash: 'Cash',
+  MobileMoney: 'MobileMoney',
+  BankTransfer: 'BankTransfer'
+} as const
+
+export type paymentMethod = (typeof paymentMethod)[keyof typeof paymentMethod]
+
+
+export const PaymentStatus = {
+  Paid: 'Paid',
+  Unpaid: 'Unpaid',
+  Partial: 'Partial'
+} as const
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]

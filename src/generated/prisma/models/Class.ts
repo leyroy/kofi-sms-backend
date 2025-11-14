@@ -27,21 +27,21 @@ export type ClassMinAggregateOutputType = {
   id: string | null
   name: string | null
   description: string | null
-  feeId: string | null
+  level: $Enums.LevelForFees | null
 }
 
 export type ClassMaxAggregateOutputType = {
   id: string | null
   name: string | null
   description: string | null
-  feeId: string | null
+  level: $Enums.LevelForFees | null
 }
 
 export type ClassCountAggregateOutputType = {
   id: number
   name: number
   description: number
-  feeId: number
+  level: number
   _all: number
 }
 
@@ -50,21 +50,21 @@ export type ClassMinAggregateInputType = {
   id?: true
   name?: true
   description?: true
-  feeId?: true
+  level?: true
 }
 
 export type ClassMaxAggregateInputType = {
   id?: true
   name?: true
   description?: true
-  feeId?: true
+  level?: true
 }
 
 export type ClassCountAggregateInputType = {
   id?: true
   name?: true
   description?: true
-  feeId?: true
+  level?: true
   _all?: true
 }
 
@@ -144,7 +144,7 @@ export type ClassGroupByOutputType = {
   id: string
   name: string
   description: string | null
-  feeId: string
+  level: $Enums.LevelForFees
   _count: ClassCountAggregateOutputType | null
   _min: ClassMinAggregateOutputType | null
   _max: ClassMaxAggregateOutputType | null
@@ -172,8 +172,7 @@ export type ClassWhereInput = {
   id?: Prisma.StringFilter<"Class"> | string
   name?: Prisma.StringFilter<"Class"> | string
   description?: Prisma.StringNullableFilter<"Class"> | string | null
-  feeId?: Prisma.StringFilter<"Class"> | string
-  fee?: Prisma.XOR<Prisma.FeeScalarRelationFilter, Prisma.FeeWhereInput>
+  level?: Prisma.EnumLevelForFeesFilter<"Class"> | $Enums.LevelForFees
   students?: Prisma.StudentListRelationFilter
 }
 
@@ -181,8 +180,7 @@ export type ClassOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  feeId?: Prisma.SortOrder
-  fee?: Prisma.FeeOrderByWithRelationInput
+  level?: Prisma.SortOrder
   students?: Prisma.StudentOrderByRelationAggregateInput
 }
 
@@ -193,8 +191,7 @@ export type ClassWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ClassWhereInput | Prisma.ClassWhereInput[]
   name?: Prisma.StringFilter<"Class"> | string
   description?: Prisma.StringNullableFilter<"Class"> | string | null
-  feeId?: Prisma.StringFilter<"Class"> | string
-  fee?: Prisma.XOR<Prisma.FeeScalarRelationFilter, Prisma.FeeWhereInput>
+  level?: Prisma.EnumLevelForFeesFilter<"Class"> | $Enums.LevelForFees
   students?: Prisma.StudentListRelationFilter
 }, "id">
 
@@ -202,7 +199,7 @@ export type ClassOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  feeId?: Prisma.SortOrder
+  level?: Prisma.SortOrder
   _count?: Prisma.ClassCountOrderByAggregateInput
   _max?: Prisma.ClassMaxOrderByAggregateInput
   _min?: Prisma.ClassMinOrderByAggregateInput
@@ -215,14 +212,14 @@ export type ClassScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Class"> | string
   name?: Prisma.StringWithAggregatesFilter<"Class"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Class"> | string | null
-  feeId?: Prisma.StringWithAggregatesFilter<"Class"> | string
+  level?: Prisma.EnumLevelForFeesWithAggregatesFilter<"Class"> | $Enums.LevelForFees
 }
 
 export type ClassCreateInput = {
   id?: string
   name: string
   description?: string | null
-  fee: Prisma.FeeCreateNestedOneWithoutClassInput
+  level: $Enums.LevelForFees
   students?: Prisma.StudentCreateNestedManyWithoutClassInput
 }
 
@@ -230,7 +227,7 @@ export type ClassUncheckedCreateInput = {
   id?: string
   name: string
   description?: string | null
-  feeId: string
+  level: $Enums.LevelForFees
   students?: Prisma.StudentUncheckedCreateNestedManyWithoutClassInput
 }
 
@@ -238,7 +235,7 @@ export type ClassUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fee?: Prisma.FeeUpdateOneRequiredWithoutClassNestedInput
+  level?: Prisma.EnumLevelForFeesFieldUpdateOperationsInput | $Enums.LevelForFees
   students?: Prisma.StudentUpdateManyWithoutClassNestedInput
 }
 
@@ -246,7 +243,7 @@ export type ClassUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  feeId?: Prisma.StringFieldUpdateOperationsInput | string
+  level?: Prisma.EnumLevelForFeesFieldUpdateOperationsInput | $Enums.LevelForFees
   students?: Prisma.StudentUncheckedUpdateManyWithoutClassNestedInput
 }
 
@@ -254,20 +251,21 @@ export type ClassCreateManyInput = {
   id?: string
   name: string
   description?: string | null
-  feeId: string
+  level: $Enums.LevelForFees
 }
 
 export type ClassUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  level?: Prisma.EnumLevelForFeesFieldUpdateOperationsInput | $Enums.LevelForFees
 }
 
 export type ClassUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  feeId?: Prisma.StringFieldUpdateOperationsInput | string
+  level?: Prisma.EnumLevelForFeesFieldUpdateOperationsInput | $Enums.LevelForFees
 }
 
 export type ClassScalarRelationFilter = {
@@ -279,31 +277,21 @@ export type ClassCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  feeId?: Prisma.SortOrder
+  level?: Prisma.SortOrder
 }
 
 export type ClassMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  feeId?: Prisma.SortOrder
+  level?: Prisma.SortOrder
 }
 
 export type ClassMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  feeId?: Prisma.SortOrder
-}
-
-export type ClassListRelationFilter = {
-  every?: Prisma.ClassWhereInput
-  some?: Prisma.ClassWhereInput
-  none?: Prisma.ClassWhereInput
-}
-
-export type ClassOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
+  level?: Prisma.SortOrder
 }
 
 export type ClassCreateNestedOneWithoutStudentsInput = {
@@ -320,60 +308,22 @@ export type ClassUpdateOneRequiredWithoutStudentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ClassUpdateToOneWithWhereWithoutStudentsInput, Prisma.ClassUpdateWithoutStudentsInput>, Prisma.ClassUncheckedUpdateWithoutStudentsInput>
 }
 
-export type ClassCreateNestedManyWithoutFeeInput = {
-  create?: Prisma.XOR<Prisma.ClassCreateWithoutFeeInput, Prisma.ClassUncheckedCreateWithoutFeeInput> | Prisma.ClassCreateWithoutFeeInput[] | Prisma.ClassUncheckedCreateWithoutFeeInput[]
-  connectOrCreate?: Prisma.ClassCreateOrConnectWithoutFeeInput | Prisma.ClassCreateOrConnectWithoutFeeInput[]
-  createMany?: Prisma.ClassCreateManyFeeInputEnvelope
-  connect?: Prisma.ClassWhereUniqueInput | Prisma.ClassWhereUniqueInput[]
-}
-
-export type ClassUncheckedCreateNestedManyWithoutFeeInput = {
-  create?: Prisma.XOR<Prisma.ClassCreateWithoutFeeInput, Prisma.ClassUncheckedCreateWithoutFeeInput> | Prisma.ClassCreateWithoutFeeInput[] | Prisma.ClassUncheckedCreateWithoutFeeInput[]
-  connectOrCreate?: Prisma.ClassCreateOrConnectWithoutFeeInput | Prisma.ClassCreateOrConnectWithoutFeeInput[]
-  createMany?: Prisma.ClassCreateManyFeeInputEnvelope
-  connect?: Prisma.ClassWhereUniqueInput | Prisma.ClassWhereUniqueInput[]
-}
-
-export type ClassUpdateManyWithoutFeeNestedInput = {
-  create?: Prisma.XOR<Prisma.ClassCreateWithoutFeeInput, Prisma.ClassUncheckedCreateWithoutFeeInput> | Prisma.ClassCreateWithoutFeeInput[] | Prisma.ClassUncheckedCreateWithoutFeeInput[]
-  connectOrCreate?: Prisma.ClassCreateOrConnectWithoutFeeInput | Prisma.ClassCreateOrConnectWithoutFeeInput[]
-  upsert?: Prisma.ClassUpsertWithWhereUniqueWithoutFeeInput | Prisma.ClassUpsertWithWhereUniqueWithoutFeeInput[]
-  createMany?: Prisma.ClassCreateManyFeeInputEnvelope
-  set?: Prisma.ClassWhereUniqueInput | Prisma.ClassWhereUniqueInput[]
-  disconnect?: Prisma.ClassWhereUniqueInput | Prisma.ClassWhereUniqueInput[]
-  delete?: Prisma.ClassWhereUniqueInput | Prisma.ClassWhereUniqueInput[]
-  connect?: Prisma.ClassWhereUniqueInput | Prisma.ClassWhereUniqueInput[]
-  update?: Prisma.ClassUpdateWithWhereUniqueWithoutFeeInput | Prisma.ClassUpdateWithWhereUniqueWithoutFeeInput[]
-  updateMany?: Prisma.ClassUpdateManyWithWhereWithoutFeeInput | Prisma.ClassUpdateManyWithWhereWithoutFeeInput[]
-  deleteMany?: Prisma.ClassScalarWhereInput | Prisma.ClassScalarWhereInput[]
-}
-
-export type ClassUncheckedUpdateManyWithoutFeeNestedInput = {
-  create?: Prisma.XOR<Prisma.ClassCreateWithoutFeeInput, Prisma.ClassUncheckedCreateWithoutFeeInput> | Prisma.ClassCreateWithoutFeeInput[] | Prisma.ClassUncheckedCreateWithoutFeeInput[]
-  connectOrCreate?: Prisma.ClassCreateOrConnectWithoutFeeInput | Prisma.ClassCreateOrConnectWithoutFeeInput[]
-  upsert?: Prisma.ClassUpsertWithWhereUniqueWithoutFeeInput | Prisma.ClassUpsertWithWhereUniqueWithoutFeeInput[]
-  createMany?: Prisma.ClassCreateManyFeeInputEnvelope
-  set?: Prisma.ClassWhereUniqueInput | Prisma.ClassWhereUniqueInput[]
-  disconnect?: Prisma.ClassWhereUniqueInput | Prisma.ClassWhereUniqueInput[]
-  delete?: Prisma.ClassWhereUniqueInput | Prisma.ClassWhereUniqueInput[]
-  connect?: Prisma.ClassWhereUniqueInput | Prisma.ClassWhereUniqueInput[]
-  update?: Prisma.ClassUpdateWithWhereUniqueWithoutFeeInput | Prisma.ClassUpdateWithWhereUniqueWithoutFeeInput[]
-  updateMany?: Prisma.ClassUpdateManyWithWhereWithoutFeeInput | Prisma.ClassUpdateManyWithWhereWithoutFeeInput[]
-  deleteMany?: Prisma.ClassScalarWhereInput | Prisma.ClassScalarWhereInput[]
+export type EnumLevelForFeesFieldUpdateOperationsInput = {
+  set?: $Enums.LevelForFees
 }
 
 export type ClassCreateWithoutStudentsInput = {
   id?: string
   name: string
   description?: string | null
-  fee: Prisma.FeeCreateNestedOneWithoutClassInput
+  level: $Enums.LevelForFees
 }
 
 export type ClassUncheckedCreateWithoutStudentsInput = {
   id?: string
   name: string
   description?: string | null
-  feeId: string
+  level: $Enums.LevelForFees
 }
 
 export type ClassCreateOrConnectWithoutStudentsInput = {
@@ -396,90 +346,14 @@ export type ClassUpdateWithoutStudentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fee?: Prisma.FeeUpdateOneRequiredWithoutClassNestedInput
+  level?: Prisma.EnumLevelForFeesFieldUpdateOperationsInput | $Enums.LevelForFees
 }
 
 export type ClassUncheckedUpdateWithoutStudentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  feeId?: Prisma.StringFieldUpdateOperationsInput | string
-}
-
-export type ClassCreateWithoutFeeInput = {
-  id?: string
-  name: string
-  description?: string | null
-  students?: Prisma.StudentCreateNestedManyWithoutClassInput
-}
-
-export type ClassUncheckedCreateWithoutFeeInput = {
-  id?: string
-  name: string
-  description?: string | null
-  students?: Prisma.StudentUncheckedCreateNestedManyWithoutClassInput
-}
-
-export type ClassCreateOrConnectWithoutFeeInput = {
-  where: Prisma.ClassWhereUniqueInput
-  create: Prisma.XOR<Prisma.ClassCreateWithoutFeeInput, Prisma.ClassUncheckedCreateWithoutFeeInput>
-}
-
-export type ClassCreateManyFeeInputEnvelope = {
-  data: Prisma.ClassCreateManyFeeInput | Prisma.ClassCreateManyFeeInput[]
-  skipDuplicates?: boolean
-}
-
-export type ClassUpsertWithWhereUniqueWithoutFeeInput = {
-  where: Prisma.ClassWhereUniqueInput
-  update: Prisma.XOR<Prisma.ClassUpdateWithoutFeeInput, Prisma.ClassUncheckedUpdateWithoutFeeInput>
-  create: Prisma.XOR<Prisma.ClassCreateWithoutFeeInput, Prisma.ClassUncheckedCreateWithoutFeeInput>
-}
-
-export type ClassUpdateWithWhereUniqueWithoutFeeInput = {
-  where: Prisma.ClassWhereUniqueInput
-  data: Prisma.XOR<Prisma.ClassUpdateWithoutFeeInput, Prisma.ClassUncheckedUpdateWithoutFeeInput>
-}
-
-export type ClassUpdateManyWithWhereWithoutFeeInput = {
-  where: Prisma.ClassScalarWhereInput
-  data: Prisma.XOR<Prisma.ClassUpdateManyMutationInput, Prisma.ClassUncheckedUpdateManyWithoutFeeInput>
-}
-
-export type ClassScalarWhereInput = {
-  AND?: Prisma.ClassScalarWhereInput | Prisma.ClassScalarWhereInput[]
-  OR?: Prisma.ClassScalarWhereInput[]
-  NOT?: Prisma.ClassScalarWhereInput | Prisma.ClassScalarWhereInput[]
-  id?: Prisma.StringFilter<"Class"> | string
-  name?: Prisma.StringFilter<"Class"> | string
-  description?: Prisma.StringNullableFilter<"Class"> | string | null
-  feeId?: Prisma.StringFilter<"Class"> | string
-}
-
-export type ClassCreateManyFeeInput = {
-  id?: string
-  name: string
-  description?: string | null
-}
-
-export type ClassUpdateWithoutFeeInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  students?: Prisma.StudentUpdateManyWithoutClassNestedInput
-}
-
-export type ClassUncheckedUpdateWithoutFeeInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  students?: Prisma.StudentUncheckedUpdateManyWithoutClassNestedInput
-}
-
-export type ClassUncheckedUpdateManyWithoutFeeInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  level?: Prisma.EnumLevelForFeesFieldUpdateOperationsInput | $Enums.LevelForFees
 }
 
 
@@ -517,8 +391,7 @@ export type ClassSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   id?: boolean
   name?: boolean
   description?: boolean
-  feeId?: boolean
-  fee?: boolean | Prisma.FeeDefaultArgs<ExtArgs>
+  level?: boolean
   students?: boolean | Prisma.Class$studentsArgs<ExtArgs>
   _count?: boolean | Prisma.ClassCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["class"]>
@@ -527,49 +400,41 @@ export type ClassSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   id?: boolean
   name?: boolean
   description?: boolean
-  feeId?: boolean
-  fee?: boolean | Prisma.FeeDefaultArgs<ExtArgs>
+  level?: boolean
 }, ExtArgs["result"]["class"]>
 
 export type ClassSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   description?: boolean
-  feeId?: boolean
-  fee?: boolean | Prisma.FeeDefaultArgs<ExtArgs>
+  level?: boolean
 }, ExtArgs["result"]["class"]>
 
 export type ClassSelectScalar = {
   id?: boolean
   name?: boolean
   description?: boolean
-  feeId?: boolean
+  level?: boolean
 }
 
-export type ClassOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "feeId", ExtArgs["result"]["class"]>
+export type ClassOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "level", ExtArgs["result"]["class"]>
 export type ClassInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  fee?: boolean | Prisma.FeeDefaultArgs<ExtArgs>
   students?: boolean | Prisma.Class$studentsArgs<ExtArgs>
   _count?: boolean | Prisma.ClassCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type ClassIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  fee?: boolean | Prisma.FeeDefaultArgs<ExtArgs>
-}
-export type ClassIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  fee?: boolean | Prisma.FeeDefaultArgs<ExtArgs>
-}
+export type ClassIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type ClassIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $ClassPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Class"
   objects: {
-    fee: Prisma.$FeePayload<ExtArgs>
     students: Prisma.$StudentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
     description: string | null
-    feeId: string
+    level: $Enums.LevelForFees
   }, ExtArgs["result"]["class"]>
   composites: {}
 }
@@ -964,7 +829,6 @@ readonly fields: ClassFieldRefs;
  */
 export interface Prisma__ClassClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  fee<T extends Prisma.FeeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FeeDefaultArgs<ExtArgs>>): Prisma.Prisma__FeeClient<runtime.Types.Result.GetResult<Prisma.$FeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   students<T extends Prisma.Class$studentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Class$studentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -998,7 +862,7 @@ export interface ClassFieldRefs {
   readonly id: Prisma.FieldRef<"Class", 'String'>
   readonly name: Prisma.FieldRef<"Class", 'String'>
   readonly description: Prisma.FieldRef<"Class", 'String'>
-  readonly feeId: Prisma.FieldRef<"Class", 'String'>
+  readonly level: Prisma.FieldRef<"Class", 'LevelForFees'>
 }
     
 
@@ -1248,10 +1112,6 @@ export type ClassCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extension
    */
   data: Prisma.ClassCreateManyInput | Prisma.ClassCreateManyInput[]
   skipDuplicates?: boolean
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ClassIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1322,10 +1182,6 @@ export type ClassUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extension
    * Limit how many Classes to update.
    */
   limit?: number
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ClassIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

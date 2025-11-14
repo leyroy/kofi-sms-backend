@@ -36,21 +36,23 @@ model Student {
 }
 
 model Class {
-  id          String    @id @default(uuid())
+  id          String       @id @default(uuid())
   name        String
   description String?
-  feeId       String
-  fee         Fee       @relation(fields: [feeId], references: [id])
   students    Student[]
+  level       LevelForFees
 }
 
 model Terms {
-  id            String       @id @default(uuid())
-  name          String
-  startDate     DateTime
-  accademicYear String
-  endDate       DateTime
-  FeePayment    FeePayment[]
+  id              String       @id @default(uuid())
+  name            String
+  startDate       DateTime
+  status          termStatus   @default(Upcoming)
+  isFeesGenerated Boolean      @default(false)
+  accademicYear   String
+  endDate         DateTime
+  FeePayment      FeePayment[]
+  feePlan         FeePlans[]
 }
 
 model Subject {
@@ -70,30 +72,59 @@ model Guardian {
   student      Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
 }
 
-model Fee {
-  id         String       @id @default(uuid())
-  feeName    String
-  amount     Float
-  FeePayment FeePayment[]
-  Class      Class[]
+model FeePlans {
+  id     String         @id @default(uuid())
+  termId String
+  term   Terms          @relation(fields: [termId], references: [id], onDelete: Cascade)
+  amount Float
+  level  LevelForFees[]
+
+  @@unique([termId, level])
 }
 
 model FeePayment {
-  id        String   @id @default(uuid())
-  amount    Float
-  createdAt DateTime @default(now())
-  termId    String
-  studentId String
-  method    String
-  paidDate  DateTime
-  feeId     String
-  student   Student  @relation(fields: [studentId], references: [id], onDelete: NoAction)
-  term      Terms    @relation(fields: [termId], references: [id], onDelete: Cascade)
-  fee       Fee      @relation(fields: [feeId], references: [id], onDelete: Cascade)
+  id         String         @id @default(uuid())
+  amount     Float
+  createdAt  DateTime       @default(now())
+  termId     String
+  studentId  String
+  method     paymentMethod?
+  status     PaymentStatus
+  paidDate   DateTime       @default(now())
+  paidAmount Float
+  student    Student        @relation(fields: [studentId], references: [id], onDelete: NoAction)
+  term       Terms          @relation(fields: [termId], references: [id], onDelete: Cascade)
 }
 
 enum Gender {
   Male
   Female
   Other
+}
+
+enum LevelForFees {
+  Nursery
+  Kindergarten
+  Primary
+  JHS
+  SHS
+  Other
+}
+
+enum termStatus {
+  Ongoing
+  Completed
+  Upcoming
+}
+
+enum paymentMethod {
+  Cash
+  MobileMoney
+  BankTransfer
+}
+
+enum PaymentStatus {
+  Paid
+  Unpaid
+  Partial
 }

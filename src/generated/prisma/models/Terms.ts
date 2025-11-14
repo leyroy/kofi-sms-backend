@@ -27,6 +27,8 @@ export type TermsMinAggregateOutputType = {
   id: string | null
   name: string | null
   startDate: Date | null
+  status: $Enums.termStatus | null
+  isFeesGenerated: boolean | null
   accademicYear: string | null
   endDate: Date | null
 }
@@ -35,6 +37,8 @@ export type TermsMaxAggregateOutputType = {
   id: string | null
   name: string | null
   startDate: Date | null
+  status: $Enums.termStatus | null
+  isFeesGenerated: boolean | null
   accademicYear: string | null
   endDate: Date | null
 }
@@ -43,6 +47,8 @@ export type TermsCountAggregateOutputType = {
   id: number
   name: number
   startDate: number
+  status: number
+  isFeesGenerated: number
   accademicYear: number
   endDate: number
   _all: number
@@ -53,6 +59,8 @@ export type TermsMinAggregateInputType = {
   id?: true
   name?: true
   startDate?: true
+  status?: true
+  isFeesGenerated?: true
   accademicYear?: true
   endDate?: true
 }
@@ -61,6 +69,8 @@ export type TermsMaxAggregateInputType = {
   id?: true
   name?: true
   startDate?: true
+  status?: true
+  isFeesGenerated?: true
   accademicYear?: true
   endDate?: true
 }
@@ -69,6 +79,8 @@ export type TermsCountAggregateInputType = {
   id?: true
   name?: true
   startDate?: true
+  status?: true
+  isFeesGenerated?: true
   accademicYear?: true
   endDate?: true
   _all?: true
@@ -150,6 +162,8 @@ export type TermsGroupByOutputType = {
   id: string
   name: string
   startDate: Date
+  status: $Enums.termStatus
+  isFeesGenerated: boolean
   accademicYear: string
   endDate: Date
   _count: TermsCountAggregateOutputType | null
@@ -179,18 +193,24 @@ export type TermsWhereInput = {
   id?: Prisma.StringFilter<"Terms"> | string
   name?: Prisma.StringFilter<"Terms"> | string
   startDate?: Prisma.DateTimeFilter<"Terms"> | Date | string
+  status?: Prisma.EnumtermStatusFilter<"Terms"> | $Enums.termStatus
+  isFeesGenerated?: Prisma.BoolFilter<"Terms"> | boolean
   accademicYear?: Prisma.StringFilter<"Terms"> | string
   endDate?: Prisma.DateTimeFilter<"Terms"> | Date | string
   FeePayment?: Prisma.FeePaymentListRelationFilter
+  feePlan?: Prisma.FeePlansListRelationFilter
 }
 
 export type TermsOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  isFeesGenerated?: Prisma.SortOrder
   accademicYear?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   FeePayment?: Prisma.FeePaymentOrderByRelationAggregateInput
+  feePlan?: Prisma.FeePlansOrderByRelationAggregateInput
 }
 
 export type TermsWhereUniqueInput = Prisma.AtLeast<{
@@ -200,15 +220,20 @@ export type TermsWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.TermsWhereInput | Prisma.TermsWhereInput[]
   name?: Prisma.StringFilter<"Terms"> | string
   startDate?: Prisma.DateTimeFilter<"Terms"> | Date | string
+  status?: Prisma.EnumtermStatusFilter<"Terms"> | $Enums.termStatus
+  isFeesGenerated?: Prisma.BoolFilter<"Terms"> | boolean
   accademicYear?: Prisma.StringFilter<"Terms"> | string
   endDate?: Prisma.DateTimeFilter<"Terms"> | Date | string
   FeePayment?: Prisma.FeePaymentListRelationFilter
+  feePlan?: Prisma.FeePlansListRelationFilter
 }, "id">
 
 export type TermsOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  isFeesGenerated?: Prisma.SortOrder
   accademicYear?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   _count?: Prisma.TermsCountOrderByAggregateInput
@@ -223,6 +248,8 @@ export type TermsScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Terms"> | string
   name?: Prisma.StringWithAggregatesFilter<"Terms"> | string
   startDate?: Prisma.DateTimeWithAggregatesFilter<"Terms"> | Date | string
+  status?: Prisma.EnumtermStatusWithAggregatesFilter<"Terms"> | $Enums.termStatus
+  isFeesGenerated?: Prisma.BoolWithAggregatesFilter<"Terms"> | boolean
   accademicYear?: Prisma.StringWithAggregatesFilter<"Terms"> | string
   endDate?: Prisma.DateTimeWithAggregatesFilter<"Terms"> | Date | string
 }
@@ -231,42 +258,56 @@ export type TermsCreateInput = {
   id?: string
   name: string
   startDate: Date | string
+  status?: $Enums.termStatus
+  isFeesGenerated?: boolean
   accademicYear: string
   endDate: Date | string
   FeePayment?: Prisma.FeePaymentCreateNestedManyWithoutTermInput
+  feePlan?: Prisma.FeePlansCreateNestedManyWithoutTermInput
 }
 
 export type TermsUncheckedCreateInput = {
   id?: string
   name: string
   startDate: Date | string
+  status?: $Enums.termStatus
+  isFeesGenerated?: boolean
   accademicYear: string
   endDate: Date | string
   FeePayment?: Prisma.FeePaymentUncheckedCreateNestedManyWithoutTermInput
+  feePlan?: Prisma.FeePlansUncheckedCreateNestedManyWithoutTermInput
 }
 
 export type TermsUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumtermStatusFieldUpdateOperationsInput | $Enums.termStatus
+  isFeesGenerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
   accademicYear?: Prisma.StringFieldUpdateOperationsInput | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   FeePayment?: Prisma.FeePaymentUpdateManyWithoutTermNestedInput
+  feePlan?: Prisma.FeePlansUpdateManyWithoutTermNestedInput
 }
 
 export type TermsUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumtermStatusFieldUpdateOperationsInput | $Enums.termStatus
+  isFeesGenerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
   accademicYear?: Prisma.StringFieldUpdateOperationsInput | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   FeePayment?: Prisma.FeePaymentUncheckedUpdateManyWithoutTermNestedInput
+  feePlan?: Prisma.FeePlansUncheckedUpdateManyWithoutTermNestedInput
 }
 
 export type TermsCreateManyInput = {
   id?: string
   name: string
   startDate: Date | string
+  status?: $Enums.termStatus
+  isFeesGenerated?: boolean
   accademicYear: string
   endDate: Date | string
 }
@@ -275,6 +316,8 @@ export type TermsUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumtermStatusFieldUpdateOperationsInput | $Enums.termStatus
+  isFeesGenerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
   accademicYear?: Prisma.StringFieldUpdateOperationsInput | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -283,6 +326,8 @@ export type TermsUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumtermStatusFieldUpdateOperationsInput | $Enums.termStatus
+  isFeesGenerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
   accademicYear?: Prisma.StringFieldUpdateOperationsInput | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -291,6 +336,8 @@ export type TermsCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  isFeesGenerated?: Prisma.SortOrder
   accademicYear?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
 }
@@ -299,6 +346,8 @@ export type TermsMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  isFeesGenerated?: Prisma.SortOrder
   accademicYear?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
 }
@@ -307,6 +356,8 @@ export type TermsMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  isFeesGenerated?: Prisma.SortOrder
   accademicYear?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
 }
@@ -318,6 +369,28 @@ export type TermsScalarRelationFilter = {
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type EnumtermStatusFieldUpdateOperationsInput = {
+  set?: $Enums.termStatus
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
+export type TermsCreateNestedOneWithoutFeePlanInput = {
+  create?: Prisma.XOR<Prisma.TermsCreateWithoutFeePlanInput, Prisma.TermsUncheckedCreateWithoutFeePlanInput>
+  connectOrCreate?: Prisma.TermsCreateOrConnectWithoutFeePlanInput
+  connect?: Prisma.TermsWhereUniqueInput
+}
+
+export type TermsUpdateOneRequiredWithoutFeePlanNestedInput = {
+  create?: Prisma.XOR<Prisma.TermsCreateWithoutFeePlanInput, Prisma.TermsUncheckedCreateWithoutFeePlanInput>
+  connectOrCreate?: Prisma.TermsCreateOrConnectWithoutFeePlanInput
+  upsert?: Prisma.TermsUpsertWithoutFeePlanInput
+  connect?: Prisma.TermsWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TermsUpdateToOneWithWhereWithoutFeePlanInput, Prisma.TermsUpdateWithoutFeePlanInput>, Prisma.TermsUncheckedUpdateWithoutFeePlanInput>
 }
 
 export type TermsCreateNestedOneWithoutFeePaymentInput = {
@@ -334,20 +407,86 @@ export type TermsUpdateOneRequiredWithoutFeePaymentNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TermsUpdateToOneWithWhereWithoutFeePaymentInput, Prisma.TermsUpdateWithoutFeePaymentInput>, Prisma.TermsUncheckedUpdateWithoutFeePaymentInput>
 }
 
+export type TermsCreateWithoutFeePlanInput = {
+  id?: string
+  name: string
+  startDate: Date | string
+  status?: $Enums.termStatus
+  isFeesGenerated?: boolean
+  accademicYear: string
+  endDate: Date | string
+  FeePayment?: Prisma.FeePaymentCreateNestedManyWithoutTermInput
+}
+
+export type TermsUncheckedCreateWithoutFeePlanInput = {
+  id?: string
+  name: string
+  startDate: Date | string
+  status?: $Enums.termStatus
+  isFeesGenerated?: boolean
+  accademicYear: string
+  endDate: Date | string
+  FeePayment?: Prisma.FeePaymentUncheckedCreateNestedManyWithoutTermInput
+}
+
+export type TermsCreateOrConnectWithoutFeePlanInput = {
+  where: Prisma.TermsWhereUniqueInput
+  create: Prisma.XOR<Prisma.TermsCreateWithoutFeePlanInput, Prisma.TermsUncheckedCreateWithoutFeePlanInput>
+}
+
+export type TermsUpsertWithoutFeePlanInput = {
+  update: Prisma.XOR<Prisma.TermsUpdateWithoutFeePlanInput, Prisma.TermsUncheckedUpdateWithoutFeePlanInput>
+  create: Prisma.XOR<Prisma.TermsCreateWithoutFeePlanInput, Prisma.TermsUncheckedCreateWithoutFeePlanInput>
+  where?: Prisma.TermsWhereInput
+}
+
+export type TermsUpdateToOneWithWhereWithoutFeePlanInput = {
+  where?: Prisma.TermsWhereInput
+  data: Prisma.XOR<Prisma.TermsUpdateWithoutFeePlanInput, Prisma.TermsUncheckedUpdateWithoutFeePlanInput>
+}
+
+export type TermsUpdateWithoutFeePlanInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumtermStatusFieldUpdateOperationsInput | $Enums.termStatus
+  isFeesGenerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  accademicYear?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  FeePayment?: Prisma.FeePaymentUpdateManyWithoutTermNestedInput
+}
+
+export type TermsUncheckedUpdateWithoutFeePlanInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumtermStatusFieldUpdateOperationsInput | $Enums.termStatus
+  isFeesGenerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  accademicYear?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  FeePayment?: Prisma.FeePaymentUncheckedUpdateManyWithoutTermNestedInput
+}
+
 export type TermsCreateWithoutFeePaymentInput = {
   id?: string
   name: string
   startDate: Date | string
+  status?: $Enums.termStatus
+  isFeesGenerated?: boolean
   accademicYear: string
   endDate: Date | string
+  feePlan?: Prisma.FeePlansCreateNestedManyWithoutTermInput
 }
 
 export type TermsUncheckedCreateWithoutFeePaymentInput = {
   id?: string
   name: string
   startDate: Date | string
+  status?: $Enums.termStatus
+  isFeesGenerated?: boolean
   accademicYear: string
   endDate: Date | string
+  feePlan?: Prisma.FeePlansUncheckedCreateNestedManyWithoutTermInput
 }
 
 export type TermsCreateOrConnectWithoutFeePaymentInput = {
@@ -370,16 +509,22 @@ export type TermsUpdateWithoutFeePaymentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumtermStatusFieldUpdateOperationsInput | $Enums.termStatus
+  isFeesGenerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
   accademicYear?: Prisma.StringFieldUpdateOperationsInput | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  feePlan?: Prisma.FeePlansUpdateManyWithoutTermNestedInput
 }
 
 export type TermsUncheckedUpdateWithoutFeePaymentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumtermStatusFieldUpdateOperationsInput | $Enums.termStatus
+  isFeesGenerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
   accademicYear?: Prisma.StringFieldUpdateOperationsInput | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  feePlan?: Prisma.FeePlansUncheckedUpdateManyWithoutTermNestedInput
 }
 
 
@@ -389,10 +534,12 @@ export type TermsUncheckedUpdateWithoutFeePaymentInput = {
 
 export type TermsCountOutputType = {
   FeePayment: number
+  feePlan: number
 }
 
 export type TermsCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   FeePayment?: boolean | TermsCountOutputTypeCountFeePaymentArgs
+  feePlan?: boolean | TermsCountOutputTypeCountFeePlanArgs
 }
 
 /**
@@ -412,14 +559,24 @@ export type TermsCountOutputTypeCountFeePaymentArgs<ExtArgs extends runtime.Type
   where?: Prisma.FeePaymentWhereInput
 }
 
+/**
+ * TermsCountOutputType without action
+ */
+export type TermsCountOutputTypeCountFeePlanArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FeePlansWhereInput
+}
+
 
 export type TermsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   startDate?: boolean
+  status?: boolean
+  isFeesGenerated?: boolean
   accademicYear?: boolean
   endDate?: boolean
   FeePayment?: boolean | Prisma.Terms$FeePaymentArgs<ExtArgs>
+  feePlan?: boolean | Prisma.Terms$feePlanArgs<ExtArgs>
   _count?: boolean | Prisma.TermsCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["terms"]>
 
@@ -427,6 +584,8 @@ export type TermsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   id?: boolean
   name?: boolean
   startDate?: boolean
+  status?: boolean
+  isFeesGenerated?: boolean
   accademicYear?: boolean
   endDate?: boolean
 }, ExtArgs["result"]["terms"]>
@@ -435,6 +594,8 @@ export type TermsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   id?: boolean
   name?: boolean
   startDate?: boolean
+  status?: boolean
+  isFeesGenerated?: boolean
   accademicYear?: boolean
   endDate?: boolean
 }, ExtArgs["result"]["terms"]>
@@ -443,13 +604,16 @@ export type TermsSelectScalar = {
   id?: boolean
   name?: boolean
   startDate?: boolean
+  status?: boolean
+  isFeesGenerated?: boolean
   accademicYear?: boolean
   endDate?: boolean
 }
 
-export type TermsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "startDate" | "accademicYear" | "endDate", ExtArgs["result"]["terms"]>
+export type TermsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "startDate" | "status" | "isFeesGenerated" | "accademicYear" | "endDate", ExtArgs["result"]["terms"]>
 export type TermsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   FeePayment?: boolean | Prisma.Terms$FeePaymentArgs<ExtArgs>
+  feePlan?: boolean | Prisma.Terms$feePlanArgs<ExtArgs>
   _count?: boolean | Prisma.TermsCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TermsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -459,11 +623,14 @@ export type $TermsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   name: "Terms"
   objects: {
     FeePayment: Prisma.$FeePaymentPayload<ExtArgs>[]
+    feePlan: Prisma.$FeePlansPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
     startDate: Date
+    status: $Enums.termStatus
+    isFeesGenerated: boolean
     accademicYear: string
     endDate: Date
   }, ExtArgs["result"]["terms"]>
@@ -861,6 +1028,7 @@ readonly fields: TermsFieldRefs;
 export interface Prisma__TermsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   FeePayment<T extends Prisma.Terms$FeePaymentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Terms$FeePaymentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FeePaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  feePlan<T extends Prisma.Terms$feePlanArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Terms$feePlanArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FeePlansPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -893,6 +1061,8 @@ export interface TermsFieldRefs {
   readonly id: Prisma.FieldRef<"Terms", 'String'>
   readonly name: Prisma.FieldRef<"Terms", 'String'>
   readonly startDate: Prisma.FieldRef<"Terms", 'DateTime'>
+  readonly status: Prisma.FieldRef<"Terms", 'termStatus'>
+  readonly isFeesGenerated: Prisma.FieldRef<"Terms", 'Boolean'>
   readonly accademicYear: Prisma.FieldRef<"Terms", 'String'>
   readonly endDate: Prisma.FieldRef<"Terms", 'DateTime'>
 }
@@ -1304,6 +1474,30 @@ export type Terms$FeePaymentArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.FeePaymentScalarFieldEnum | Prisma.FeePaymentScalarFieldEnum[]
+}
+
+/**
+ * Terms.feePlan
+ */
+export type Terms$feePlanArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FeePlans
+   */
+  select?: Prisma.FeePlansSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FeePlans
+   */
+  omit?: Prisma.FeePlansOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeePlansInclude<ExtArgs> | null
+  where?: Prisma.FeePlansWhereInput
+  orderBy?: Prisma.FeePlansOrderByWithRelationInput | Prisma.FeePlansOrderByWithRelationInput[]
+  cursor?: Prisma.FeePlansWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FeePlansScalarFieldEnum | Prisma.FeePlansScalarFieldEnum[]
 }
 
 /**

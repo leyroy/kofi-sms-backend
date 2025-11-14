@@ -54,7 +54,7 @@ export const ModelName = {
   Terms: 'Terms',
   Subject: 'Subject',
   Guardian: 'Guardian',
-  Fee: 'Fee',
+  FeePlans: 'FeePlans',
   FeePayment: 'FeePayment'
 } as const
 
@@ -107,7 +107,7 @@ export const ClassScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
-  feeId: 'feeId'
+  level: 'level'
 } as const
 
 export type ClassScalarFieldEnum = (typeof ClassScalarFieldEnum)[keyof typeof ClassScalarFieldEnum]
@@ -117,6 +117,8 @@ export const TermsScalarFieldEnum = {
   id: 'id',
   name: 'name',
   startDate: 'startDate',
+  status: 'status',
+  isFeesGenerated: 'isFeesGenerated',
   accademicYear: 'accademicYear',
   endDate: 'endDate'
 } as const
@@ -146,13 +148,14 @@ export const GuardianScalarFieldEnum = {
 export type GuardianScalarFieldEnum = (typeof GuardianScalarFieldEnum)[keyof typeof GuardianScalarFieldEnum]
 
 
-export const FeeScalarFieldEnum = {
+export const FeePlansScalarFieldEnum = {
   id: 'id',
-  feeName: 'feeName',
-  amount: 'amount'
+  termId: 'termId',
+  amount: 'amount',
+  level: 'level'
 } as const
 
-export type FeeScalarFieldEnum = (typeof FeeScalarFieldEnum)[keyof typeof FeeScalarFieldEnum]
+export type FeePlansScalarFieldEnum = (typeof FeePlansScalarFieldEnum)[keyof typeof FeePlansScalarFieldEnum]
 
 
 export const FeePaymentScalarFieldEnum = {
@@ -162,8 +165,9 @@ export const FeePaymentScalarFieldEnum = {
   termId: 'termId',
   studentId: 'studentId',
   method: 'method',
+  status: 'status',
   paidDate: 'paidDate',
-  feeId: 'feeId'
+  paidAmount: 'paidAmount'
 } as const
 
 export type FeePaymentScalarFieldEnum = (typeof FeePaymentScalarFieldEnum)[keyof typeof FeePaymentScalarFieldEnum]

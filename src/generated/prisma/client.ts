@@ -72,10 +72,10 @@ export type Subject = Prisma.SubjectModel
  */
 export type Guardian = Prisma.GuardianModel
 /**
- * Model Fee
+ * Model FeePlans
  * 
  */
-export type Fee = Prisma.FeeModel
+export type FeePlans = Prisma.FeePlansModel
 /**
  * Model FeePayment
  * 
